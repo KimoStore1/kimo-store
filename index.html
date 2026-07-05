@@ -449,32 +449,33 @@
             
             window.open(finalUrl, '_blank');
         }
-        const sheetUrl = "https://docs.google.com/spreadsheets/d/1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnKl-Y8/gviz/tq?tqx=out:csv";
+       const sheetId = "1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnKl-Y8";
+const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
 async function loadProductsFromSheet() {
     try {
         const response = await fetch(sheetUrl);
-        const data = await response.text();
+        const text = await response.text();
         
-        // تقسيم البيانات لأسطر
-        const rows = data.split('\n').map(row => row.trim()).filter(row => row.length > 0);
-        // تجاهل السطر الأول (العناوين)
-        const productRows = rows.slice(1); 
-
+        // تنظيف النص وتحويله لـ JSON حقيقي
+        const jsonString = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+        const jsonData = JSON.parse(jsonString);
+        
+        const rows = jsonData.table.rows;
         const grid = document.getElementById('productsGrid');
         if (!grid) return;
         grid.innerHTML = ""; 
 
-        productRows.forEach(row => {
-            // تقسيم الأعمدة بشكل مرن
-            const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            if(columns.length < 4) return;
+        rows.forEach(row => {
+            // قراءة الخانات بالترتيب (A=0, B=1, C=2, D=3, E=4)
+            const id = row.c[0] ? row.c[0].v : "";
+            const title = row.c[1] ? row.c[1].v : "";
+            const price = row.c[2] ? row.c[2].v : "";
+            const image = row.c[3] ? row.c[3].v : "";
+            const description = row.c[4] ? row.c[4].v : "";
 
-            const id = columns[0].replace(/"/g, '').trim();
-            const title = columns[1].replace(/"/g, '').trim();
-            const price = columns[2].replace(/"/g, '').trim();
-            const image = columns[3].replace(/"/g, '').trim();
-            const description = columns[4] ? columns[4].replace(/"/g, '').trim() : "";
+            // لو السطر فاضي أو دي خانة العناوين الأساسية يتخطاها
+            if (!id || id === "id" || id === "Id") return;
 
             const card = document.createElement('div');
             card.className = 'product-card';
@@ -501,7 +502,7 @@ async function loadProductsFromSheet() {
         });
 
     } catch (error) {
-        console.error("خطأ في تحميل المنتجات:", error);
+        console.error("خطأ في تحميل المنتجات من جوجل شيت:", error);
     }
 }
 
