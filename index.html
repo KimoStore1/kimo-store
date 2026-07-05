@@ -413,7 +413,66 @@ function addItemToCart(itemName, itemPrice, sizeSelectId) {
     updateCartUI();
 }
 
-// 3. دالة حذف قطعة معينة بـ ❌
+// 3. دالة جلب المنتجات من الجوجل شيت
+const sheetId = "1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90oBJZF-ECnK1-Y8";
+const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+async function loadProductsFromSheet() {
+    try {
+        const response = await fetch(sheetUrl);
+        const text = await response.text();
+        
+        const jsonString = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+        const jsonData = JSON.parse(jsonString);
+        
+        const rows = jsonData.table.rows;
+        const grid = document.getElementById('productsGrid');
+        if (!grid) return;
+        grid.innerHTML = "";
+        
+        rows.forEach(row => {
+            const id = row.c[0] ? row.c[0].v : "";
+            const title = row.c[1] ? row.c[1].v : "";
+            const price = row.c[2] ? row.c[2].v : "";
+            const image = row.c[3] ? row.c[3].v : "";
+            const description = row.c[4] ? row.c[4].v : "";
+            const badgeText = row.c[6] ? row.c[6].v : "";
+            
+            if (!id || id === "id" || id === "ID") return;
+            
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            const sizeSelectId = `size-${id}`;
+            
+            productCard.innerHTML = `
+                <div class="product-badge">${badgeText || 'جديد'}</div>
+                <img src="${image}" alt="${title}" onclick="openImageModal('${image}')" style="cursor:pointer;">
+                <h3>${title}</h3>
+                <p>${description}</p>
+                <div class="price">${price} جنيه</div>
+                
+                <div style="margin: 10px 0;">
+                    <label>المقاس: </label>
+                    <select id="${sizeSelectId}">
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                
+                <button class="btn-add-cart" onclick="addItemToCart('${title.replace(/'/g, "\\'")}', '${price}', '${sizeSelectId}')">
+                    إضافة للسلة 🛒
+                </button>
+            `;
+            grid.appendChild(productCard);
+        });
+    } catch (error) {
+        console.error("Error loading products:", error);
+    }
+}
+
+// 4. دالة حذف قطعة معينة بـ ❌
 function removeItemFromCart(index) {
     shoppingCart.splice(index, 1);
     const cartCountEl = document.getElementById("cartCount");
@@ -421,7 +480,7 @@ function removeItemFromCart(index) {
     updateCartUI();
 }
 
-// 4. دالة تحديث وعرض المنتجات في السلة
+// دالة تحديث وعرض المنتجات في السلة
 function updateCartUI() {
     const listContainer = document.getElementById("cartItemsList");
     const totalContainer = document.getElementById("cartTotalAmount");
@@ -458,7 +517,7 @@ function updateCartUI() {
     if (totalContainer) totalContainer.innerText = total;
 }
 
-// 5. دالة إرسال الطلب للواتساب
+// دالة إرسال الطلب للواتساب
 function sendOrderToWhatsApp() {
     if (shoppingCart.length === 0) {
         alert("السلة فارغة! ضيف منتجات الأول.");
