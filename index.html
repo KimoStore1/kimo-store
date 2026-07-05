@@ -482,7 +482,7 @@ async function loadProductsFromSheet() {
             card.innerHTML = `
                 <div class="product-img-holder">
                     <span class="badge-new">وصل حديثاً</span>
-                    <img src="${image}" alt="${title}">
+                    <img src="${image}" alt="${title}" onclick="openImageModal('${image}')">
                 </div>
                 <div class="product-details">
                     <h3 class="product-name">${title}</h3>
@@ -514,9 +514,30 @@ window.addEventListener('DOMContentLoaded', loadProductsFromSheet);
             setTimeout(() => {
                 toast.style.opacity = '0';
             }, 2500);
+            // دالة لفتح الصورة وتكبيرها
+function openImageModal(imgSrc) {
+    document.getElementById("imageModal").style.display = "block";
+    document.getElementById("imgFull").src = imgSrc;
+}
+
+// دالة لقفل الصندوق
+function closeImageModal() {
+    document.getElementById("imageModal").style.display = "none";
+}
         }
+        // دالة لفتح الصورة وتكبيرها
+function openImageModal(imgSrc) {
+    document.getElementById("imageModal").style.display = "block";
+    document.getElementById("imgFull").src = imgSrc;
+}
+
+// دالة لقفل الصندوق
+function closeImageModal() {
+    document.getElementById("imageModal").style.display = "none";
+}
     </script>
-    <!-- صندوق تكبير الصور -->
+
+<!-- صندوق تكبير الصور -->
 <div id="imageModal" class="image-modal" onclick="closeImageModal()">
     <span class="close-modal">&times;</span>
     <img class="modal-content" id="imgFull">
@@ -554,7 +575,7 @@ window.addEventListener('DOMContentLoaded', loadProductsFromSheet);
     cursor: pointer;
 }
 .product-img-holder img {
-    cursor: pointer; /* بيخلي الماوس يتحول ليد لما يقف على صورة المنتج */
+    cursor: pointer;
 }
 </style>
 </body>
