@@ -355,71 +355,8 @@
     <div class="container">
         <h2 class="section-title">أحدث المنتجات المتاحة</h2>
         
-        <div class="products-grid">
+        <div class="products-grid" id="productsGrid">
             
-            <div class="product-card">
-                <div class="product-img-holder">
-                    <span class="badge-new">وصل حديثاً</span>
-                    <img src="1000740075.jpg" alt="دريس فستان طويل وردي">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">فستان (دريس) طويل كاجوال وردي أنيق</h3>
-                    <p class="product-price">550 <span>جنيه</span></p>
-                    <div class="size-selector-wrapper">
-                        <label>اختر المقاس:</label>
-                        <select class="size-select" id="size-item-1">
-                            <option value="M">مقاس M</option>
-                            <option value="L">مقاس L</option>
-                            <option value="XL">مقاس XL</option>
-                            <option value="XXL">مقاس XXL</option>
-                        </select>
-                    </div>
-                    <button class="btn-add-to-cart" onclick="addItemToCart('فستان طويل كاجوال وردي', 550, 'size-item-1')">إضافة إلى السلة</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img-holder">
-                    <span class="badge-new">وصل حديثاً</span>
-                    <img src="1000740077.jpg" alt="طقم كاجوال وردي قطعتين">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">طقم كاجوال خروج قطعتين وردي مريح</h3>
-                    <p class="product-price">680 <span>جنيه</span></p>
-                    <div class="size-selector-wrapper">
-                        <label>اختر المقاس:</label>
-                        <select class="size-select" id="size-item-2">
-                            <option value="S">مقاس S</option>
-                            <option value="M">مقاس M</option>
-                            <option value="L">مقاس L</option>
-                            <option value="XL">مقاس XL</option>
-                        </select>
-                    </div>
-                    <button class="btn-add-to-cart" onclick="addItemToCart('طقم كاجوال قطعتين وردي', 680, 'size-item-2')">إضافة إلى السلة</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img-holder">
-                    <span class="badge-new">الأكثر مبيعاً</span>
-                    <img src="1000740079.jpg" alt="تيشرت أوفر سايز أبيض">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">تيشرت أوفر سايز أبيض (BLAKE Back Print)</h3>
-                    <p class="product-price">390 <span>جنيه</span></p>
-                    <div class="size-selector-wrapper">
-                        <label>اختر المقاس:</label>
-                        <select class="size-select" id="size-item-3">
-                            <option value="M">مقاس M</option>
-                            <option value="L">مقاس L</option>
-                            <option value="XL">مقاس XL</option>
-                            <option value="XXL">مقاس XXL</option>
-                        </select>
-                    </div>
-                    <button class="btn-add-to-cart" onclick="addItemToCart('تيشرت أوفر سايز أبيض BLAKE', 390, 'size-item-3')">إضافة إلى السلة</button>
-                </div>
-            </div>
-
         </div>
 
         <div class="contact-section">
@@ -512,7 +449,60 @@
             
             window.open(finalUrl, '_blank');
         }
+         const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1YoQfjRRZVviEYIYVACpwL2XYXeE-r9DFaKEkTTh9pTNMyFPpxFzLaqJwO5-WT4SptPMKumkdFG5D/pub?output=csv";
 
+async function loadProductsFromSheet() {
+    try {
+        const response = await fetch(sheetUrl);
+        const data = await response.text();
+        
+        const rows = data.split('\n').slice(1);
+        const products = rows.map(row => {
+            const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            if(columns.length < 4) return null;
+            return {
+                id: columns[0].replace(/"/g, '').trim(),
+                title: columns[1].replace(/"/g, '').trim(),
+                price: columns[2].replace(/"/g, '').trim(),
+                image: columns[3].replace(/"/g, '').trim(),
+                description: columns[4] ? columns[4].replace(/"/g, '').trim() : ""
+            };
+        }).filter(p => p !== null);
+
+        const grid = document.getElementById('productsGrid');
+        grid.innerHTML = ""; 
+
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-img-holder">
+                    <span class="badge-new">وصل حديثاً</span>
+                    <img src="${product.image}" alt="${product.title}">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-name">${product.title}</h3>
+                    <p class="product-price">${product.price} <span>جنيه</span></p>
+                    <div class="size-selector-wrapper">
+                        <label>اختر المقاس:</label>
+                        <select class="size-select" id="size-${product.id}">
+                            <option value="M">مقاس M</option>
+                            <option value="L">مقاس L</option>
+                            <option value="XL">مقاس XL</option>
+                        </select>
+                    </div>
+                    <button class="btn-add-to-cart" onclick="addItemToCart('${product.title}', ${product.price}, 'size-${product.id}')">إضافة إلى السلة</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error("خطأ في تحميل المنتجات:", error);
+    }
+}
+
+window.addEventListener('DOMContentLoaded', loadProductsFromSheet);
         function triggerNotification(text) {
             const toast = document.getElementById('notificationToast');
             toast.innerText = text;
