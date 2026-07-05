@@ -464,7 +464,7 @@ async function loadProductsFromSheet() {
         const rows = jsonData.table.rows;
         const grid = document.getElementById('productsGrid');
         if (!grid) return;
-        grid.innerHTML = ""; 
+        grid.innerHTML = "";
 
         rows.forEach(row => {
             // قراءة الخانات بالترتيب (A=0, B=1, C=2, D=3, E=4)
