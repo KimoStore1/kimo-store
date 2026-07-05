@@ -660,6 +660,12 @@ function closeImageModal() {
 </div>
 
 <!-- صندوق السلة (Modal) -->
+<!-- زرار السلة العائم -->
+<div class="cart-badge-btn" onclick="toggleCartModal()">
+    🛒 السلة (<span id="cartCount">0</span>)
+</div>
+
+<!-- صندوق السلة (Modal) -->
 <div id="cartModal" class="cart-modal">
     <div class="cart-modal-content">
         <span class="close-cart" onclick="toggleCartModal()">&times;</span>
@@ -674,7 +680,6 @@ function closeImageModal() {
         <button class="btn-checkout" onclick="sendOrderToWhatsApp()">إتمام الطلب عبر الواتساب 🚀</button>
     </div>
 </div>
-
 <style>
 /* تصميم زرار السلة العائم */
 .cart-badge-btn {
