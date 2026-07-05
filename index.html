@@ -414,7 +414,7 @@ function addItemToCart(itemName, itemPrice, sizeSelectId) {
 }
 
 // 3. دالة جلب المنتجات من الجوجل شيت
-const sheetUrl = "https://docs.google.com/spreadsheets/d/1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnK1-Y8/gviz/tq?tqx=out:json";
+const sheetUrl = "https://docs.google.com/spreadsheets/d/1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnK1-Y8/gviz/tq?tqx=out:json&sheet=Sheet1";
 async function loadProductsFromSheet() {
     try {
         const response = await fetch(sheetUrl);
