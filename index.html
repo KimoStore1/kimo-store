@@ -387,31 +387,99 @@
     <div class="notification-toast" id="notificationToast">تم إضافة المنتج إلى السلة بنجاح!</div>
 
     <script>
-        // مصفوفة لتخزين محتويات السلة
-        let shoppingCart = [];
+        // مصفوفة لتخزين عناصر السلة
+let shoppingCart = [];
+
+// دالة لفتح وقفل نافذة السلة
+function toggleCartModal() {
+    const modal = document.getElementById("cartModal");
+    if (modal.style.display === "block") {
+        modal.style.display = "none";
+    } else {
+        modal.style.display = "block";
+        updateCartUI();
+    }
+}
+
+// دالة إضافة منتج للسلة
+function addItemToCart(itemName, itemPrice, sizeSelectId) {
+    const sizeElement = document.getElementById(sizeSelectId);
+    const sizeValue = sizeElement ? sizeElement.value : "M";
+    
+    // إضافة المنتج للمصفوفة
+    shoppingCart.push({ name: itemName, price: parseFloat(itemPrice), size: sizeValue });
+    
+    // تحديث العداد
+    document.getElementById("cartCount").innerText = shoppingCart.length;
+    
+    // التنبيه اللي بيظهر فوق
+    triggerNotification(`🛒 ضفت: ${itemName} (مقاس ${sizeValue})`);
+    
+    updateCartUI();
+}
+
+// دالة حذف قطعة معينة بـ ❌
+function removeItemFromCart(index) {
+    shoppingCart.splice(index, 1); // مسح القطعة دي بس
+    document.getElementById("cartCount").innerText = shoppingCart.length; // تحديث العداد
+    updateCartUI(); // إعادة رسم السلة
+}
+
+// دالة تحديث وعرض المنتجات في السلة
+function updateCartUI() {
+    const listContainer = document.getElementById("cartItemsList");
+    const totalContainer = document.getElementById("cartTotalAmount");
+    
+    if (!listContainer) return;
+    
+    listContainer.innerHTML = "";
+    let total = 0;
+    
+    if (shoppingCart.length === 0) {
+        listContainer.innerHTML = "<p style='text-align:center; color:#999;'>السلة فارغة حالياً</p>";
+        totalContainer.innerText = "0";
+        return;
+    }
+    
+    shoppingCart.forEach((item, index) => {
+        total += item.price;
         
-        // رقم الواتساب الخاص بـ Kimo Store مربوط وجاهز بالكود الدولي لمصر (2)
-        const TARGET_WHATSAPP = "201144425383"; 
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "cart-item";
+        itemDiv.innerHTML = `
+            <div>
+                <strong>${item.name}</strong> <small>(مقاس ${item.size})</small>
+                <br><span style="color:#666;">${item.price} جنيه</span>
+            </div>
+            <button class="btn-remove" onclick="removeItemFromCart(${index})">❌</button>
+        `;
+        listContainer.appendChild(itemDiv);
+    });
+    
+    totalContainer.innerText = total;
+}
 
-        function addItemToCart(itemName, itemPrice, sizeSelectId) {
-            const sizeValue = document.getElementById(sizeSelectId).value;
-            
-            // إضافة العنصر الحالي للمصفوفة
-            shoppingCart.push({
-                name: itemName,
-                price: itemPrice,
-                size: sizeValue
-            });
-
-            renderCartBar();
-            triggerNotification(`🛒 ضفت: ${itemName} (مقاس ${sizeValue})`);
-        }
-
-        function renderCartBar() {
-            const barElement = document.getElementById('cartFloatingBar');
-            const countElement = document.getElementById('totalItemsCount');
-            const priceElement = document.getElementById('totalPriceAmount');
-
+// دالة إرسال الطلب للواتساب
+function sendOrderToWhatsApp() {
+    if (shoppingCart.length === 0) {
+        alert("السلة فارغة! ضيف منتجات الأول.");
+        return;
+    }
+    
+    let message = "مرحباً كيمو ستور، أود طلب المنتجات التالية:\n\n";
+    let total = 0;
+    
+    shoppingCart.forEach((item, index) => {
+        message += `${index + 1}- ${item.name} | المقاس: ${item.size} | السعر: ${item.price} جنيه\n`;
+        total += item.price;
+    });
+    
+    message += `\n💰 الإجمالي الكلي: ${total} جنيه`;
+    
+    const phoneNumber = "201144425383";
+    const finalUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(finalUrl, '_blank');
+}
             if (shoppingCart.length > 0) {
                 barElement.classList.add('active');
             } else {
@@ -585,6 +653,43 @@ function closeImageModal() {
 .product-img-holder img {
     cursor: pointer;
 }
+</style>
+<!-- زرار السلة العائم -->
+<div class="cart-badge-btn" onclick="toggleCartModal()">
+    🛒 السلة (<span id="cartCount">0</span>)
+</div>
+
+<!-- صندوق السلة (Modal) -->
+<div id="cartModal" class="cart-modal">
+    <div class="cart-modal-content">
+        <span class="close-cart" onclick="toggleCartModal()">&times;</span>
+        <h3>🛍️ سلة المشتريات</h3>
+        <hr>
+        <div id="cartItemsList">
+            <!-- المنتجات هتنزل هنا بالـ JavaScript -->
+        </div>
+        <div class="cart-total">
+            <strong>الإجمالي:</strong> <span id="cartTotalAmount">0</span> جنيه
+        </div>
+        <button class="btn-checkout" onclick="sendOrderToWhatsApp()">إتمام الطلب عبر الواتساب 🚀</button>
+    </div>
+</div>
+
+<style>
+/* تصميم زرار السلة العائم */
+.cart-badge-btn {
+    position: fixed; bottom: 20px; left: 20px; background: #6200ee; color: #fff;
+    padding: 12px 20px; border-radius: 30px; font-weight: bold; cursor: pointer; z-index: 999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); direction: rtl;
+}
+/* صندوق السلة */
+.cart-modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+.cart-modal-content { background: #fff; margin: 10% auto; padding: 20px; width: 90%; max-width: 450px; border-radius: 12px; direction: rtl; position: relative; }
+.close-cart { position: absolute; top: 15px; left: 15px; font-size: 28px; cursor: pointer; color: #666; }
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; direction: rtl; }
+.btn-remove { background: none; border: none; color: #ff3b30; font-size: 18px; cursor: pointer; padding: 0 10px; }
+.cart-total { margin-top: 15px; font-size: 18px; text-align: left; }
+.btn-checkout { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
 </style>
 </body>
 </html> 
