@@ -353,7 +353,7 @@
     </div>
 
     <div class="container">
-        <h2 class="section-title">أحدث المنتجات المتاحة</h2>
+        <h2 class="section-title" id="mainSectionTitle">أحدث المنتجات المتاحة</h2>
         
         <div class="products-grid" id="productsGrid">
             
@@ -467,21 +467,29 @@ async function loadProductsFromSheet() {
         grid.innerHTML = "";
 
         rows.forEach(row => {
-            // قراءة الخانات بالترتيب (A=0, B=1, C=2, D=3, E=4)
+            // قراءة الخانات بالترتيب (A=0, B=1, C=2, D=3, E=4, F=5, G=6)
             const id = row.c[0] ? row.c[0].v : "";
             const title = row.c[1] ? row.c[1].v : "";
             const price = row.c[2] ? row.c[2].v : "";
             const image = row.c[3] ? row.c[3].v : "";
             const description = row.c[4] ? row.c[4].v : "";
+            const sectionTitle = row.c[5] ? row.c[5].v : "أحدث المنتجات المتاحة"; // العنوان الكبير من العمود F
+            const badgeText = row.c[6] ? row.c[6].v : "وصل حديثاً"; // الشارة الصغيرة من العمود G
 
             // لو السطر فاضي أو دي خانة العناوين الأساسية يتخطاها
             if (!id || id === "id" || id === "Id") return;
+
+            // تحديث العنوان الرئيسي للمتجر ديناميكياً
+            const mainTitleEl = document.getElementById('mainSectionTitle');
+            if (mainTitleEl && sectionTitle) {
+                mainTitleEl.innerText = sectionTitle;
+            }
 
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
                 <div class="product-img-holder">
-                    <span class="badge-new">وصل حديثاً</span>
+                    <span class="badge-new">${badgeText}</span>
                     <img src="${image}" alt="${title}" onclick="openImageModal('${image}')">
                 </div>
                 <div class="product-details">
