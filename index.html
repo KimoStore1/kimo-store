@@ -476,7 +476,7 @@
     <script>
         // دالة جلب المنتجات من الجوجل شيت الافتراضية قبل التعديل
         const sheetId = "1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnK1-Y8";
-        const sheetUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1YoQfjRRZVviEYlYVACpwL2XYXeE-r9DFaKEKtTh9pTNMyFPpxFzLAqJwO5-WT4SptPMKUmkdFG5D/pub?gid=0&single=true&output=csv`;
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
         async function loadProductsFromSheet() {
             try {
