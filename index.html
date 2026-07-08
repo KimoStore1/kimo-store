@@ -425,7 +425,8 @@
                     const price = row.c[2] ? row.c[2].v : "";
                     const image = row.c[3] ? row.c[3].v : "";
                     const description = row.c[4] ? row.c[4].v : "";
-                    const badgeText = row.c[6] ? row.c[6].v : "";
+                    const sectionTitle = row.c[5] ? row.c[5].v : ""; // ده للعمود F
+                    const badgeText = row.c[6] ? row.c[6].v : "";    // ده للعمود G
                     
                     if (!id || id === "id" || id === "ID") return;
                     
