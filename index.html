@@ -3,94 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كيمو ستور - عالم التميز</title>
+    <title>كيمو ستور - Kimo Store</title>
     <style>
-        body { 
-            background-color: #000; 
-            color: #d4af37; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            text-align: center; 
-            margin: 0;
-            padding: 0;
-        }
-        header { 
-            background: linear-gradient(to bottom, #1a1a1a, #000); 
-            padding: 30px; 
-            border-bottom: 3px solid #d4af37;
-        }
-        .logo { width: 180px; border-radius: 50%; border: 2px solid #d4af37; margin-bottom: 15px; }
-        h1 { color: #d4af37; text-transform: uppercase; letter-spacing: 2px; margin: 10px 0; }
-        .product-list { 
-            display: flex; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            gap: 30px; 
-            padding: 40px; 
-        }
-        .product-card { 
-            background: #111; 
-            border: 1px solid #333; 
-            padding: 20px; 
-            border-radius: 15px; 
-            width: 250px;
-            transition: 0.3s;
-        }
-        .product-card:hover { border-color: #d4af37; transform: translateY(-10px); }
-        .product-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
-        button { 
-            background-color: #d4af37; 
-            color: #000; 
-            border: none; 
-            padding: 12px 25px; 
-            font-weight: bold; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            margin-top: 15px;
-            width: 100%;
-        }
-        button:hover { background-color: #fff; }
-        footer { padding: 30px; background: #000; border-top: 1px solid #333; }
-        footer a { color: #d4af37; text-decoration: none; font-size: 1.2em; font-weight: bold; }
+        body { background-color: #f9f9f9; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; }
+        header { background-color: #2c2c2c; color: white; padding: 20px; }
+        .logo { width: 100px; border-radius: 50%; }
+        .product-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
+        .product-card { background: white; padding: 15px; border-radius: 15px; width: 280px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .product-card img { width: 100%; border-radius: 10px; }
+        .price { font-size: 1.2em; font-weight: bold; color: #e91e63; margin: 10px 0; }
+        button { background-color: #000; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 16px; }
+        .footer-info { background: #2c2c2c; color: white; padding: 20px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="1000740086.png" alt="Kimo Store Logo" class="logo">
-        <h1>كيمو ستور - عالم التميز</h1>
-        <p>المرج القديمة - عند نادي المرج الرياضي</p>
+        <img src="1000740086.png" class="logo">
+        <h1>Kimo Store</h1>
+        <p>مرحباً بكم في متجر كيمو ستور لأحدث صيحات الملابس</p>
     </header>
 
     <section class="product-list">
-        <!-- المنتج 1 -->
         <div class="product-card">
-            <img src="1000740075.jpg" alt="فستان كاجوال">
-            <h3>فستان كاجوال</h3>
-            <button onclick="order('فستان كاجوال')">اطلب عبر واتساب</button>
+            <img src="1000740075.jpg">
+            <h3>فستان (دريس) طويل كاجوال وردي أنيق</h3>
+            <div class="price">550 جنيه</div>
+            <button onclick="order('فستان وردي - 550 جنيه')">اطلب الآن</button>
         </div>
-        <!-- المنتج 2 -->
         <div class="product-card">
-            <img src="1000740077.jpg" alt="طقم بيجامة خروج">
-            <h3>طقم بيجامة خروج</h3>
-            <button onclick="order('طقم بيجامة خروج')">اطلب عبر واتساب</button>
+            <img src="1000740077.jpg">
+            <h3>طقم كاجوال خروج قطعتين وردي مريح</h3>
+            <div class="price">680 جنيه</div>
+            <button onclick="order('طقم وردي - 680 جنيه')">اطلب الآن</button>
         </div>
-        <!-- المنتج 3 -->
         <div class="product-card">
-            <img src="1000740079.jpg" alt="تيشيرت مطبوع">
-            <h3>تيشيرت مطبوع (MAKE)</h3>
-            <button onclick="order('تيشيرت مطبوع')">اطلب عبر واتساب</button>
+            <img src="1000740079.jpg">
+            <h3>تيشيرت أوفر سايز أبيض (BLAKE)</h3>
+            <div class="price">390 جنيه</div>
+            <button onclick="order('تيشيرت أبيض - 390 جنيه')">اطلب الآن</button>
         </div>
     </section>
 
-    <footer>
-        <a href="https://tiktok.com/@kimo_store8" target="_blank">تابعنا على تيك توك</a>
-    </footer>
+    <div class="footer-info">
+        <h3>📍 تفاصيل الفرع والتوصيل</h3>
+        <p>العنوان الرئيسي: المرج القديمة - عند نادي المرج الرياضي</p>
+        <p>رقم الكول سنتر / واتساب: 01144425383</p>
+        <p>🚀 متاح الشحن والتوصيل لجميع المحافظات بسرعة وبأفضل الأسعار!</p>
+        <a href="https://tiktok.com/@kimo_store8" style="color: gold; text-decoration: none;">تابعنا على تيك توك</a>
+    </div>
 
     <script>
-        function order(productName) {
+        function order(product) {
             const phone = "01144425383";
-            const message = `أهلاً كيمو ستور، أريد طلب المنتج التالي: ${productName}`;
-            window.open(`https://wa.me/20${phone}?text=${encodeURIComponent(message)}`, '_blank');
+            window.open(`https://wa.me/20${phone}?text=أريد طلب: ${product}`, '_blank');
         }
     </script>
 </body>
