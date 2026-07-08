@@ -438,8 +438,7 @@
                     productCard.innerHTML = `
                     <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
                     <div class="badge-new">${badgeText || 'جديد'}</div>
-                            <img src="${image}" alt="${title}">
-                        </div>
+                        <img src="${image}" alt="${title}" style="width: 100%; height: 250px; object-fit: cover;">
                         <div class="product-details">
                             <h3 class="product-name">${title}</h3>
                             <p style="font-size:0.9rem; color:#666; margin-bottom:10px; height:40px; overflow:hidden;">${description}</p>
