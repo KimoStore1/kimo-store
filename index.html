@@ -3,74 +3,643 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كيمو ستور - Kimo Store</title>
+    <title>Kimo Store | كيمو ستور</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
-        header { background: #000; color: #ffcc00; text-align: center; padding: 20px; }
-        .logo { width: 100px; border-radius: 50%; border: 2px solid #ffcc00; }
-        
-        /* تنظيم المنتجات بشكل شبكة */
-        .product-list { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 15px; 
-            padding: 15px; 
-        }
-        
-        .product-card { 
-            background: white; 
-            padding: 10px; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-            text-align: center; 
+        :root {
+            --main-purple: #880e4f; /* مستوحى من خلفية اللوجو */
+            --dark-bg: #111111;
+            --light-bg: #fdfafb;
+            --text-dark: #222222;
+            --text-light: #ffffff;
+            --whatsapp-green: #25D366;
+            --accent-yellow: #ffd54f; /* اللون الأصفر في اللوجو */
         }
 
-        /* تحديد حجم ثابت للصور عشان ما تطلعش كبيرة */
-        .product-card img { 
-            width: 100%; 
-            height: 250px; 
-            object-fit: cover; 
-            border-radius: 8px;  
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
         }
 
-        .price { color: #27ae60; font-weight: bold; margin: 10px 0; }
-        button { background: #27ae60; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            padding-bottom: 120px;
+        }
+
+        .social-btn.whatsapp {
+            background-color: #25D366 !important;
+            color: white !important;
+        }
+
+        /* الهيدر واللوجو */
+        header {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px 15px;
+            border-bottom: 5px solid var(--main-purple);
+        }
+
+        .logo-placeholder {
+            width: 150px;
+            height: 150px;
+            background-color: var(--main-purple);
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            border: 4px solid var(--accent-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--accent-yellow);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        /* البانر الترحيبي */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--main-purple), var(--dark-bg));
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .hero-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero-banner p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding-right: 10px;
+            border-right: 5px solid var(--main-purple);
+            font-weight: 700;
+        }
+
+        /* شبكة المنتجات */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 5px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img-holder {
+            position: relative;
+            width: 100%;
+            height: 380px; /* طول احترافي وممتاز لعرض الفساتين والملابس كاملة */
+            background-color: #f9f9f9;
+        }
+
+        .product-img-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .badge-new {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--main-purple);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--main-purple);
+            margin-bottom: 15px;
+        }
+
+        .product-price span {
+            font-size: 0.85rem;
+            color: #777;
+            font-weight: normal;
+        }
+
+        .size-selector-wrapper label {
+            font-size: 0.85rem;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .size-select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-add-cart {
+            width: 100%;
+            background-color: var(--dark-bg);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-add-cart:hover {
+            background-color: var(--main-purple);
+        }
+
+        /* فرع التواصل والمعلومات */
+        .contact-section {
+            background: var(--dark-bg);
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: var(--accent-yellow);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .social-btn:hover {
+            background: var(--main-purple);
+        }
+
+        /* بار السلة العائم السفلي */
+        .cart-floating-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .cart-info-inline {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-btn-basket {
+            background: var(--main-purple);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-order-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* مودال السلة التفصيلي */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .cart-modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="1000740086.png" class="logo">
-        <h1>Kimo Store </h1>
+        <div class="logo-placeholder">
+            <!-- سيتم وضع صورة اللوجو هنا لاحقاً -->
+            <img src="1000740086.png" alt="كيمو ستور">
+        </div>
+        <h1>كيمو ستور</h1>
+        <p>مرحباً بكم في متجر كيمو ستور لأحدث صيحات الملابس</p>
     </header>
 
-    <div class="product-list">
-        <div class="product-card">
-            <img src="1000740075.jpg">
-            <h3>فستان كاجوال</h3>
-            <div class="price">550 جنيه</div>
-            <button onclick="order('فستان كاجوال')">اطلب الآن</button>
-        </div>
+    <div class="hero-banner">
+        <h2>NEW COLLECTION 2026 🔥</h2>
+        <p>توصيل متاح داخل القاهرة فقط 🚗</p>
+    </div>
 
-        <div class="product-card">
-            <img src="1000740077.jpg">
-            <h3>طقم خروج</h3>
-            <div class="price">680 جنيه</div>
-            <button onclick="order('طقم خروج')">اطلب الآن</button>
-        </div>
+    <div class="container">
+        <h2 class="section-title">أحدث المنتجات المتاحة</h2>
+        <div class="products-grid">
+    
+    <!-- المنتج الأول -->
+    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
+        <span class="product-badge" style="background: #ff4757; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px;">آخر تريند</span>
+        <img src="1000740075.jpg" alt="فستان أحمر" class="product-image" style="width: 100%; max-height: 300px; object-fit: contain; margin-top: 10px; border-radius: 4px;">
+        <div class="product-info" style="margin-top: 15px;">
+            <h3 class="product-title" style="font-size: 18px; margin: 10px 0;">فستان أحمر</h3>
+            <p class="product-description" style="color: #666; font-size: 14px;">منتج رائع وخامة ممتازة</p>
+            
+            <!-- اختيار المقاس -->
+            <div style="margin: 10px 0;">
+                <label for="size-1" style="font-size: 14px; margin-left: 5px;">المقاس:</label>
+                <select id="size-1" style="padding: 5px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+            </div>
 
-        <div class="product-card">
-            <img src="1000740079.jpg">
-            <h3>تيشيرت BLAKE</h3>
-            <div class="price">390 جنيه</div>
-            <button onclick="order('تيشيرت BLAKE')">اطلب الآن</button>
+            <div class="product-price" style="font-weight: bold; color: #2ed573; font-size: 18px; margin: 10px 0;">350 جنيه</div>
+            <button class="add-to-cart-btn" onclick="addItemToCart('فستان أحمر', 350, 'size-1')" style="background: #2ed573; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;">إضافة للسلة 🛒</button>
+        </div>
+    </div>
+
+    <!-- المنتج الثاني -->
+    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
+        <span class="product-badge" style="background: #ff4757; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px;">آخر تريند</span>
+        <img src="1000740077.jpg" alt="طقم كاجوال بيج" class="product-image" style="width: 100%; max-height: 300px; object-fit: contain; margin-top: 10px; border-radius: 4px;">
+        <div class="product-info" style="margin-top: 15px;">
+            <h3 class="product-title" style="font-size: 18px; margin: 10px 0;">طقم كاجوال بيج</h3>
+            <p class="product-description" style="color: #666; font-size: 14px;">أحدث صيحة ومريح جداً في اللبس</p>
+            
+            <!-- اختيار المقاس -->
+            <div style="margin: 10px 0;">
+                <label for="size-2" style="font-size: 14px; margin-left: 5px;">المقاس:</label>
+                <select id="size-2" style="padding: 5px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+            </div>
+
+            <div class="product-price" style="font-weight: bold; color: #2ed573; font-size: 18px; margin: 10px 0;">400 جنيه</div>
+            <button class="add-to-cart-btn" onclick="addItemToCart('طقم كاجوال بيج', 400, 'size-2')" style="background: #2ed573; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;">إضافة للسلة 🛒</button>
+        </div>
+    </div>
+
+    <!-- المنتج الثالث -->
+    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
+        <span class="product-badge" style="background: #ff4757; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px;">آخر تريند</span>
+        <img src="1000740079.jpg" alt="سويت شيرت أوفر سايز" class="product-image" style="width: 100%; max-height: 300px; object-fit: contain; margin-top: 10px; border-radius: 4px;">
+        <div class="product-info" style="margin-top: 15px;">
+            <h3 class="product-title" style="font-size: 18px; margin: 10px 0;">سويت شيرت أوفر سايز</h3>
+            <p class="product-description" style="color: #666; font-size: 14px;">خامة شتوية تقيلة وممتازة</p>
+            
+            <!-- اختيار المقاس -->
+            <div style="margin: 10px 0;">
+                <label for="size-3" style="font-size: 14px; margin-left: 5px;">المقاس:</label>
+                <select id="size-3" style="padding: 5px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+            </div> 
+
+            <div class="product-price" style="font-weight: bold; color: #2ed573; font-size: 18px; margin: 10px 0;">280 جنيه</div>
+            <button class="add-to-cart-btn" onclick="addItemToCart('سويت شيرت أوفر سايز', 280, 'size-3')" style="background: #2ed573; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;">إضافة للسلة 🛒</button>
+        </div>
+    </div>
+
+</div>
+
+        <!-- فرع التواصل والمعلومات السفلية -->
+        <div class="contact-section">
+            <h3>تواصل معنا</h3>
+            <div class="contact-info">
+                <p>📍   مكاننا: القاهرة، مصر , المرج القديمه خلف نادى المرج </p>
+                <p>📱 خدمة العملاء والطلبات متاحة 24 ساعة</p>
+            </div>
+            <div class="social-links">
+                <a href="https://wa.me/201144425383" class="social-btn whatsapp" target="_blank">واتساب 🟢</a>
+                <a href="https://www.tiktok.com/@kimo_store8?_r=1&_t=ZS-97muA2sQWiQ" class="social-btn" target="_blank">تيك توك 🖤</a>
+            </div> 
+        </div>
+    </div>
+
+    <!-- بار السلة العائم السفلي المدمج -->
+    <div class="cart-floating-bar">
+        <div class="cart-info-inline">
+            <button class="cart-btn-basket" onclick="toggleCartModal()">السلة 🛒 (<span id="cartCount">0</span>)</button>
+            <div>الإجمالي: <span id="cartTotalInline" style="font-weight: bold; color: var(--main-purple);">0</span> جنيه</div>
+        </div>
+        <button class="btn-order-whatsapp" onclick="sendOrderToWhatsApp()">تأكيد الطلب (واتساب) 💬</button>
+    </div>
+
+    <!-- مودال عرض السلة بالتفصيل عند الضغط على زر السلة -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <span class="close-modal" onclick="toggleCartModal()">&times;</span>
+            <h3 style="margin-bottom: 20px; text-align: center;">المنتجات في السلة 🛒</h3>
+            <ul id="cartItemsList" style="list-style: none; max-height: 300px; overflow-y: auto;">
+                <!-- المنتجات المضافة ستظهر هنا ديناميكياً -->
+            </ul>
+            <div style="margin-top: 20px; border-top: 2px dashed #eee; padding-top: 15px; display: flex; justify-content: space-between; font-weight: bold;">
+                <span>الإجمالي الكلي:</span>
+                <span><span id="cartTotalModal">0</span> جنيه</span>
+            </div>
+            <button class="btn-order-whatsapp" style="width: 100%; margin-top: 20px; text-align: center;" onclick="sendOrderToWhatsApp()">إرسال الطلب عبر واتساب 🚀</button>
         </div>
     </div>
 
     <script>
-        function order(item) {
-            window.open('https://wa.me/201144425383?text=أريد طلب: ' + item, '_blank');
+        // دالة جلب المنتجات من الجوجل شيت الافتراضية قبل التعديل
+        const sheetId = "1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnK1-Y8";
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+        async function loadProductsFromSheet() {
+            try {
+                const response = await fetch(sheetUrl);
+                const text = await response.text();
+                
+                const jsonString = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+                const jsonData = JSON.parse(jsonString);
+                
+                const rows = jsonData.table.rows;
+                const grid = document.getElementById('productsGrid');
+                if (!grid) return;
+                //grid.innerHTML = "";
+                
+                rows.forEach(row => {
+                    const id = row.c[0] ? row.c[0].v : "";
+                    const title = row.c[1] ? row.c[1].v : "";
+                    const price = row.c[2] ? row.c[2].v : "";
+                    const image = row.c[3] ? row.c[3].v : "";
+                    const description = row.c[4] ? row.c[4].v : "";
+                    const badgeText = row.c[6] ? row.c[6].v : "";
+                    
+                    if (!id || id === "id" || id === "ID") return;
+                    
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    const sizeSelectId = `size-${id}`;
+                    
+                    productCard.innerHTML = `
+                        <div class="badge-new">${badgeText || 'جديد'}</div>
+                        <div class="product-img-holder">
+                            <img src="${image}" alt="${title}">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">${title}</h3>
+                            <p style="font-size:0.9rem; color:#666; margin-bottom:10px; height:40px; overflow:hidden;">${description}</p>
+                            <div class="product-price">${price} <span>جنيه</span></div>
+                            
+                            <div class="size-selector-wrapper" style="margin-bottom: 15px;">
+                                <label>المقاس:</label>
+                                <select id="${sizeSelectId}" class="size-select">
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}')">إضافة للسلة 🛒</button>
+                        </div>
+                    `;
+                    grid.appendChild(productCard);
+                });
+            } catch (error) {
+                console.error("Error loading products:", error);
+            }
         }
+
+        // سلة المشتريات المؤقتة
+        let cart = [];
+
+        function addItemToCart(name, price, sizeSelectId) {
+    // لو مفيش id للمقاس مبعوت، حط مقاس افتراضي 'M'
+    let selectedSize = 'M'; 
+    
+    if (sizeSelectId) {
+        const sizeSelect = document.getElementById(sizeSelectId);
+        selectedSize = sizeSelect ? sizeSelect.value : 'M';
+    }
+
+    cart.push({ name: name, price: parseFloat(price), size: selectedSize });
+    updateCart();
+}
+
+        function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+}
+
+function updateCart() {
+    const cartCountElement = document.getElementById('cartCount');
+    if (cartCountElement) {
+        cartCountElement.innerText = cart.length;
+    }
+
+    const itemsList = document.getElementById('cartItemsList');
+    if (!itemsList) return;
+
+    itemsList.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+
+        const itemRow = document.createElement('div');
+        itemRow.style.display = 'flex';
+        itemRow.style.justifyContent = 'space-between';
+        itemRow.style.alignItems = 'center';
+        itemRow.style.marginBottom = '10px';
+        itemRow.style.paddingBottom = '5px';
+        itemRow.style.borderBottom = '1px solid #eee';
+
+       itemRow.innerHTML = `
+            <div>
+                <span style="font-weight: bold; color: #333;">${item.name}</span> 
+                <span style="color: #888; font-size: 13px;">(${item.size})</span>
+                <div style="color: #2ed573; font-size: 14px; font-weight: bold;">${item.price} جنيه</div>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff4757; cursor: pointer; font-size: 16px; padding: 5px;">❌</button>
+        `;
+        itemsList.appendChild(itemRow);
+    });
+
+    // تحديث الإجمالي الكلي في المودال والصفحة
+    const totalElement = document.getElementById('cartTotal');
+    if (totalElement) {
+        totalElement.innerText = total + " جنيه";
+    }
+    
+    const totalInline = document.getElementById('cartTotalInline');
+    if (totalInline) {
+        totalInline.innerText = total;
+    }
+
+    const totalModal = document.getElementById('cartTotalModal');
+    if (totalModal) {
+        totalModal.innerText = total;
+    }
+}
+
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            if (modal) {
+                modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+
+        function sendOrderToWhatsApp() {
+            if (cart.length === 0) {
+                alert('السلة فارغة حالياً!');
+                return;
+            }
+            let message = "طلب جديد من كيمو ستور 🛒:\n\n";
+            let total = 0;
+            cart.forEach((item, index) => {
+                message += `${index + 1}- ${item.name} (مقاس: ${item.size}) - ${item.price} جنيه\n`;
+                total += item.price;
+            });
+            message += `\n💰 الإجمالي الكلي: ${total} جنيه\n📍 التوصيل: القاهرة فقط`;
+            
+            const whatsappUrl = `https://wa.me/201144425383?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // تشغيل الدالة فور تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductsFromSheet();
+        });
     </script>
 </body>
 </html>
