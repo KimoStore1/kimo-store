@@ -551,32 +551,66 @@
     updateCart();
 }
 
-        function updateCart() {
-            document.getElementById('cartCount').innerText = cart.length;
-            
-            let total = 0;
-            const itemsList = document.getElementById('cartItemsList');
-            if (itemsList) itemsList.innerHTML = '';
-            
-            cart.forEach((item, index) => {
-                total += item.price;
-                if (itemsList) {
-                    const li = document.createElement('li');
-                    li.style.padding = '10px 0';
-                    li.style.borderBottom = '1px solid #eee';
-                    li.style.display = 'flex';
-                    li.style.justifyContent = 'space-between';
-                    li.innerHTML = `
-                        <span>${item.name} (${item.size})</span>
-                        <strong>${item.price} جنيه</strong>
-                    `;
-                    itemsList.appendChild(li);
-                }
-            });
-            
-            document.getElementById('cartTotalInline').innerText = total;
-            document.getElementById('cartTotalModal').innerText = total;
-        }
+        function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+}
+
+function updateCart() {
+    const cartCountElement = document.getElementById('cartCount');
+    if (cartCountElement) {
+        cartCountElement.innerText = cart.length;
+    }
+
+    const itemsList = document.getElementById('cartItemsList');
+    if (!itemsList) return;
+
+    itemsList.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+
+        const itemRow = document.createElement('div');
+        itemRow.style.display = 'flex';
+        itemRow.style.justifyContent = 'space-between';
+        itemRow.style.alignItems = 'center';
+        itemRow.style.marginBottom = '10px';
+        itemRow.style.paddingBottom = '5px';
+        itemRow.style.borderBottom = '1px solid #eee';
+
+       itemRow.innerHTML = `
+            <div>
+                <span style="font-weight: bold; color: #333;">${item.name}</span> 
+                <span style="color: #888; font-size: 13px;">(${item.size})</span>
+                <div style="color: #2ed573; font-size: 14px; font-weight: bold;">${item.price} جنيه</div>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff4757; cursor: pointer; font-size: 16px; padding: 5px;">❌</button>
+        `;
+        itemsList.appendChild(itemRow);
+    });
+
+    // تحديث الإجمالي الكلي في المودال والصفحة
+    const totalElement = document.getElementById('cartTotal');
+    if (totalElement) {
+        totalElement.innerText = total + " جنيه";
+    }
+    
+    const totalInline = document.getElementById('cartTotalInline');
+    if (totalInline) {
+        totalInline.innerText = total;
+    }
+
+    const totalModal = document.getElementById('cartTotalModal');
+    if (totalModal) {
+        totalModal.innerText = total;
+    }
+}
 
         function toggleCartModal() {
             const modal = document.getElementById('cartModal');
