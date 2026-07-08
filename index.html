@@ -508,7 +508,7 @@
                     productCard.innerHTML = `
                         <div class="badge-new">${badgeText || 'جديد'}</div>
                         <div class="product-img-holder">
-                            <img src="${image}" alt="${title}">
+                             <img src="${image}" alt="${title}" onclick="window.open('${image}', '_blank')" style="cursor: pointer;">
                         </div>
                         <div class="product-details">
                             <h3 class="product-name">${title}</h3>
