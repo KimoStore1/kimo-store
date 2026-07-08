@@ -3,141 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر الملابس الرقمي</title>
-    <!-- خط جوجول لتجميل الخطوط العربية -->
+    <title>Kimo Store | كيمو ستور</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary-color: #111111;
-            --accent-color: #25D366;
-            --text-muted: #666666;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
+            --main-purple: #880e4f; /* مستوحى من خلفية اللوجو */
+            --dark-bg: #111111;
+            --light-bg: #fdfafb;
+            --text-dark: #222222;
+            --text-light: #ffffff;
+            --whatsapp-green: #25D366;
+            --accent-yellow: #ffd54f; /* اللون الأصفر في اللوجو */
         }
 
         * {
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--primary-color);
-            padding-bottom: 100px; /* مساحة تمنع الغطاء عن المنتجات بسبب بار السلة السفلي */
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            padding-bottom: 120px;
         }
 
+        .social-btn.whatsapp {
+            background-color: #25D366 !important;
+            color: white !important;
+        }
+
+        /* الهيدر واللوجو */
         header {
-            background: var(--card-bg);
-            padding: 20px;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
+            padding: 30px 15px;
+            border-bottom: 5px solid var(--main-purple);
         }
 
-        header h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* شبكة المنتجات المتجاوبة */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 12px;
+        .logo-placeholder {
+            width: 150px;
+            height: 150px;
+            background-color: var(--main-purple);
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            border: 4px solid var(--accent-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        .product-img-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 125px; /* نسبة 4:5 لصور الملابس العصرية */
-            background: #eee;
-        }
-
-        .product-img-wrapper img {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .logo-placeholder img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .product-info {
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--accent-yellow);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        /* البانر الترحيبي */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--main-purple), var(--dark-bg));
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .hero-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero-banner p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 120px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding-right: 10px;
+            border-right: 5px solid var(--main-purple);
+            font-weight: 700;
+        }
+
+        /* شبكة المنتجات */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 5px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img-holder {
+            position: relative;
+            width: 100%;
+            height: 380px; /* طول احترافي وممتاز لعرض الفساتين والملابس كاملة */
+            background-color: #f9f9f9;
+        }
+
+        .product-img-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .badge-new {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--main-purple);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-details {
             padding: 20px;
         }
 
-        .product-title {
+        .product-name {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 8px;
+            height: 50px;
+            overflow: hidden;
         }
 
         .product-price {
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--main-purple);
             margin-bottom: 15px;
         }
 
         .product-price span {
             font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 400;
-            margin-right: 4px;
+            color: #777;
+            font-weight: normal;
         }
 
-        .selector-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+        .size-selector-wrapper label {
+            font-size: 0.85rem;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
         }
 
         .size-select {
-            flex: 1;
+            width: 100%;
             padding: 8px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
+            background: #fff;
             outline: none;
             font-size: 0.9rem;
-            background: #fff;
         }
 
-        .add-to-cart-btn {
+        .btn-add-cart {
             width: 100%;
-            background: var(--primary-color);
-            color: #fff;
+            background-color: var(--dark-bg);
+            color: white;
             border: none;
             padding: 12px;
             border-radius: 8px;
@@ -146,234 +219,317 @@
             transition: background 0.2s;
         }
 
-        .add-to-cart-btn:hover {
-            background: #333;
+        .btn-add-cart:hover {
+            background-color: var(--main-purple);
         }
 
-        /* بار السلة السفلي العائم */
-        .cart-bar {
+        /* فرع التواصل والمعلومات */
+        .contact-section {
+            background: var(--dark-bg);
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: var(--accent-yellow);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .social-btn:hover {
+            background: var(--main-purple);
+        }
+
+        /* بار السلة العائم السفلي */
+        .cart-floating-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--card-bg);
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            background: white;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-in-out;
+            z-index: 999;
         }
 
-        .cart-bar.active {
-            transform: translateY(0);
+        .cart-info-inline {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .cart-info-text {
-            font-size: 1rem;
-            font-weight: 700;
+        .cart-btn-basket {
+            background: var(--main-purple);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        .cart-info-text span {
-            color: var(--text-muted);
-            font-weight: 400;
-            font-size: 0.85rem;
-        }
-
-        .send-whatsapp-btn {
-            background: var(--accent-color);
+        .btn-order-whatsapp {
+            background: #25D366;
             color: white;
             border: none;
             padding: 12px 25px;
             border-radius: 8px;
-            font-weight: 700;
-            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             text-decoration: none;
         }
 
-        .send-whatsapp-btn:hover {
-            background: #1ebd54;
+        /* مودال السلة التفصيلي */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
         }
 
-        /* أنيميشن بسيط لإشعار إضافة منتج */
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            z-index: 2000;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+        .cart-modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>اسم براند صاحبك هنا</h1>
-        <p>اختار استايلك، ضيف للسلة، واطلب مباشرة على الواتساب</p>
+        <div class="logo-placeholder">
+            <!-- سيتم وضع صورة اللوجو هنا لاحقاً -->
+            <span>Kimo Store</span>
+        </div>
+        <h1>كيمو ستور</h1>
+        <p>مرحباً بكم في متجر كيمو ستور لأحدث صيحات الملابس</p>
     </header>
 
+    <div class="hero-banner">
+        <h2>NEW COLLECTION 2026 🔥</h2>
+        <p>توصيل متاح داخل القاهرة فقط 🚗</p>
+    </div>
+
     <div class="container">
-        <div class="products-grid">
-            
-            <!-- منتج 1 -->
-            <div class="product-card">
-                <div class="product-img-wrapper">
-                    <!-- حط رابط صورة المنتج الحقيقية هنا بدل الـ placeholder -->
-                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="تيشرت قطن أوفر سايز">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">تيشرت قطن أوفر سايز بيكسيل</h3>
-                    <p class="product-price">290 <span>جنيه</span></p>
-                    <div class="selector-group">
-                        <select class="size-select" id="size-1">
-                            <option value="M">مقاس M</option>
-                            <option value="L">مقاس L</option>
-                            <option value="XL">مقاس XL</option>
-                        </select>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('تيشرت قطن أوفر سايز بيكسيل', 290, 'size-1')">إضافة للسلة</button>
-                </div>
-            </div>
+        <h2 class="section-title">أحدث المنتجات المتاحة</h2>
+        <div class="products-grid" id="productsGrid">
+            <!-- جاري جلب المنتجات تلقائياً من جوجل شيت -->
+        </div>
 
-            <!-- منتج 2 -->
-            <div class="product-card">
-                <div class="product-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" alt="بنطلون جينز كارجو">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">بنطلون جينز كارجو مريح</h3>
-                    <p class="product-price">450 <span>جنيه</span></p>
-                    <div class="selector-group">
-                        <select class="size-select" id="size-2">
-                            <option value="30">مقاس 30</option>
-                            <option value="32">مقاس 32</option>
-                            <option value="34">مقاس 34</option>
-                        </select>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('بنطلون جينز كارجو مريح', 450, 'size-2')">إضافة للسلة</button>
-                </div>
+        <!-- فرع التواصل والمعلومات السفلية -->
+        <div class="contact-section">
+            <h3>تواصل معنا</h3>
+            <div class="contact-info">
+                <p>📍 مكاننا: القاهرة، مصر</p>
+                <p>📱 خدمة العملاء والطلبات متاحة 24 ساعة</p>
             </div>
-
-            <!-- منتج 3 -->
-            <div class="product-card">
-                <div class="product-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500" alt="جاكيت جينز">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">جاكيت جينز كلاسيك أزرق</h3>
-                    <p class="product-price">650 <span>جنيه</span></p>
-                    <div class="selector-group">
-                        <select class="size-select" id="size-3">
-                            <option value="L">مقاس L</option>
-                            <option value="XL">مقاس XL</option>
-                            <option value="XXL">مقاس XXL</option>
-                        </select>
-                    </div>
-                    <button class="add-to-cart-btn" onclick="addToCart('جاكيت جينز كلاسيك أزرق', 650, 'size-3')">إضافة للسلة</button>
-                </div>
+            <div class="social-links">
+                <a href="https://wa.me/201000740075" class="social-btn whatsapp" target="_blank">واتساب 🟢</a>
+                <a href="#" class="social-btn" target="_blank">تيك توك 🖤</a>
+                <a href="#" class="social-btn" target="_blank">إنستجرام 📸</a>
             </div>
-
         </div>
     </div>
 
-    <!-- بار السلة العائم -->
-    <div class="cart-bar" id="cartBar">
-        <div class="cart-info-text">
-            السلة: <span id="cartCount">0 قطع</span> | الإجمالي: <span id="cartTotal">0</span> جنيه
+    <!-- بار السلة العائم السفلي المدمج -->
+    <div class="cart-floating-bar">
+        <div class="cart-info-inline">
+            <button class="cart-btn-basket" onclick="toggleCartModal()">السلة 🛒 (<span id="cartCount">0</span>)</button>
+            <div>الإجمالي: <span id="cartTotalInline" style="font-weight: bold; color: var(--main-purple);">0</span> جنيه</div>
         </div>
-        <button class="send-whatsapp-btn" onclick="checkoutWhatsApp()">
-            إرسال الأوردر واتساب 💬
-        </button>
+        <button class="btn-order-whatsapp" onclick="sendOrderToWhatsApp()">تأكيد الطلب (واتساب) 💬</button>
     </div>
 
-    <!-- توست الإشعار -->
-    <div class="toast" id="toast">تم إضافة المنتج للسلة!</div>
+    <!-- مودال عرض السلة بالتفصيل عند الضغط على زر السلة -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <span class="close-modal" onclick="toggleCartModal()">&times;</span>
+            <h3 style="margin-bottom: 20px; text-align: center;">المنتجات في السلة 🛒</h3>
+            <ul id="cartItemsList" style="list-style: none; max-height: 300px; overflow-y: auto;">
+                <!-- المنتجات المضافة ستظهر هنا ديناميكياً -->
+            </ul>
+            <div style="margin-top: 20px; border-top: 2px dashed #eee; padding-top: 15px; display: flex; justify-content: space-between; font-weight: bold;">
+                <span>الإجمالي الكلي:</span>
+                <span><span id="cartTotalModal">0</span> جنيه</span>
+            </div>
+            <button class="btn-order-whatsapp" style="width: 100%; margin-top: 20px; text-align: center;" onclick="sendOrderToWhatsApp()">إرسال الطلب عبر واتساب 🚀</button>
+        </div>
+    </div>
 
     <script>
-        // مصفوفة لتخزين عناصر السلة
+        // دالة جلب المنتجات من الجوجل شيت الافتراضية قبل التعديل
+        const sheetId = "1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnK1-Y8";
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+        async function loadProductsFromSheet() {
+            try {
+                const response = await fetch(sheetUrl);
+                const text = await response.text();
+                
+                const jsonString = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+                const jsonData = JSON.parse(jsonString);
+                
+                const rows = jsonData.table.rows;
+                const grid = document.getElementById('productsGrid');
+                if (!grid) return;
+                grid.innerHTML = "";
+                
+                rows.forEach(row => {
+                    const id = row.c[0] ? row.c[0].v : "";
+                    const title = row.c[1] ? row.c[1].v : "";
+                    const price = row.c[2] ? row.c[2].v : "";
+                    const image = row.c[3] ? row.c[3].v : "";
+                    const description = row.c[4] ? row.c[4].v : "";
+                    const badgeText = row.c[6] ? row.c[6].v : "";
+                    
+                    if (!id || id === "id" || id === "ID") return;
+                    
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    const sizeSelectId = `size-${id}`;
+                    
+                    productCard.innerHTML = `
+                        <div class="badge-new">${badgeText || 'جديد'}</div>
+                        <div class="product-img-holder">
+                            <img src="${image}" alt="${title}">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">${title}</h3>
+                            <p style="font-size:0.9rem; color:#666; margin-bottom:10px; height:40px; overflow:hidden;">${description}</p>
+                            <div class="product-price">${price} <span>جنيه</span></div>
+                            
+                            <div class="size-selector-wrapper" style="margin-bottom: 15px;">
+                                <label>المقاس:</label>
+                                <select id="${sizeSelectId}" class="size-select">
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}')">إضافة للسلة 🛒</button>
+                        </div>
+                    `;
+                    grid.appendChild(productCard);
+                });
+            } catch (error) {
+                console.error("Error loading products:", error);
+            }
+        }
+
+        // سلة المشتريات المؤقتة
         let cart = [];
 
-        // ⚠️ مهم جداً: غير الرقم ده لرقم واتساب صاحبك (بدون اصفار في الأول وبدون علامة +)
-        const WHATSAPP_NUMBER = "201XXXXXXXXX"; 
-
-        function addToCart(name, price, sizeSelectId) {
-            const selectedSize = document.getElementById(sizeSelectId).value;
+        function addItemToCart(name, price, sizeSelectId) {
+            const sizeSelect = document.getElementById(sizeSelectId);
+            const selectedSize = sizeSelect ? sizeSelect.value : 'M';
             
-            // إضافة المنتج للسلة
-            cart.push({
-                name: name,
-                price: price,
-                size: selectedSize
-            });
-
-            updateCartUI();
-            showToast(`تم إضافة ${name} بمقاس (${selectedSize})`);
+            cart.push({ name, price: parseFloat(price), size: selectedSize });
+            updateCart();
         }
 
-        function updateCartUI() {
-            const cartBar = document.getElementById('cartBar');
-            const cartCount = document.getElementById('cartCount');
-            const cartTotal = document.getElementById('cartTotal');
-
-            if (cart.length > 0) {
-                cartBar.classList.add('active');
-            } else {
-                cartBar.classList.remove('active');
-            }
-
-            // حساب العدد والإجمالي
-            cartCount.innerText = `${cart.length} قطع`;
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            cartTotal.innerText = total;
-        }
-
-        function checkoutWhatsApp() {
-            if (cart.length === 0) return;
-
-            // بناء نص الرسالة بشكل منظم وشيك
-            let message = `🛒 *طلب جديد من الموقع*\n\n`;
+        function updateCart() {
+            document.getElementById('cartCount').innerText = cart.length;
+            
+            let total = 0;
+            const itemsList = document.getElementById('cartItemsList');
+            if (itemsList) itemsList.innerHTML = '';
             
             cart.forEach((item, index) => {
-                message += `${index + 1}. *${item.name}*\n`;
-                message += `   🔹 المقاس: ${item.size}\n`;
-                message += `   🔹 السعر: ${item.price} جنيه\n\n`;
+                total += item.price;
+                if (itemsList) {
+                    const li = document.createElement('li');
+                    li.style.padding = '10px 0';
+                    li.style.borderBottom = '1px solid #eee';
+                    li.style.display = 'flex';
+                    li.style.justifyContent = 'space-between';
+                    li.innerHTML = `
+                        <span>${item.name} (${item.size})</span>
+                        <strong>${item.price} جنيه</strong>
+                    `;
+                    itemsList.appendChild(li);
+                }
             });
+            
+            document.getElementById('cartTotalInline').innerText = total;
+            document.getElementById('cartTotalModal').innerText = total;
+        }
 
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            message += `-----------------------\n`;
-            message += `💰 *إجمالي الحساب:* ${total} جنيه\n\n`;
-            message += `متاح للشحن، برجاء تأكيد الطلب ومعرفة بيانات التوصيل!`;
+        function toggleCartModal() {
+            const modal = document.getElementById('cartModal');
+            if (modal) {
+                modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+            }
+        }
 
-            // تشفير النص لتجهيزه للرابط
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-
-            // فتح المحادثة
+        function sendOrderToWhatsApp() {
+            if (cart.length === 0) {
+                alert('السلة فارغة حالياً!');
+                return;
+            }
+            let message = "طلب جديد من كيمو ستور 🛒:\n\n";
+            let total = 0;
+            cart.forEach((item, index) => {
+                message += `${index + 1}- ${item.name} (مقاس: ${item.size}) - ${item.price} جنيه\n`;
+                total += item.price;
+            });
+            message += `\n💰 الإجمالي الكلي: ${total} جنيه\n📍 التوصيل: القاهرة فقط`;
+            
+            const whatsappUrl = `https://wa.me/201000740075?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
 
-        function showToast(text) {
-            const toast = document.getElementById('toast');
-            toast.innerText = text;
-            toast.style.opacity = '1';
-            setTimeout(() => {
-                toast.style.opacity = '0';
-            }, 2000);
-        }
+        // تشغيل الدالة فور تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductsFromSheet();
+        });
     </script>
 </body>
 </html>
