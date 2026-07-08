@@ -358,81 +358,9 @@
 
     <div class="container">
         <h2 class="section-title">أحدث المنتجات المتاحة</h2>
-        <div class="products-grid">
+        <<div class="products-grid" id="productsGrid">
     
-    <!-- المنتج الأول -->
-    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
-        <span class="product-badge" style="background: #ff4757; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px;">آخر تريند</span>
-        <img src="1000740075.jpg" alt="فستان أحمر" class="product-image" style="width: 100%; max-height: 300px; object-fit: contain; margin-top: 10px; border-radius: 4px;">
-        <div class="product-info" style="margin-top: 15px;">
-            <h3 class="product-title" style="font-size: 18px; margin: 10px 0;">فستان أحمر</h3>
-            <p class="product-description" style="color: #666; font-size: 14px;">منتج رائع وخامة ممتازة</p>
-            
-            <!-- اختيار المقاس -->
-            <div style="margin: 10px 0;">
-                <label for="size-1" style="font-size: 14px; margin-left: 5px;">المقاس:</label>
-                <select id="size-1" style="padding: 5px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                </select>
-            </div>
-
-            <div class="product-price" style="font-weight: bold; color: #2ed573; font-size: 18px; margin: 10px 0;">350 جنيه</div>
-            <button class="add-to-cart-btn" onclick="addItemToCart('فستان أحمر', 350, 'size-1')" style="background: #2ed573; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;">إضافة للسلة 🛒</button>
-        </div>
     </div>
-
-    <!-- المنتج الثاني -->
-    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
-        <span class="product-badge" style="background: #ff4757; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px;">آخر تريند</span>
-        <img src="1000740077.jpg" alt="طقم كاجوال بيج" class="product-image" style="width: 100%; max-height: 300px; object-fit: contain; margin-top: 10px; border-radius: 4px;">
-        <div class="product-info" style="margin-top: 15px;">
-            <h3 class="product-title" style="font-size: 18px; margin: 10px 0;">طقم كاجوال بيج</h3>
-            <p class="product-description" style="color: #666; font-size: 14px;">أحدث صيحة ومريح جداً في اللبس</p>
-            
-            <!-- اختيار المقاس -->
-            <div style="margin: 10px 0;">
-                <label for="size-2" style="font-size: 14px; margin-left: 5px;">المقاس:</label>
-                <select id="size-2" style="padding: 5px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                </select>
-            </div>
-
-            <div class="product-price" style="font-weight: bold; color: #2ed573; font-size: 18px; margin: 10px 0;">400 جنيه</div>
-            <button class="add-to-cart-btn" onclick="addItemToCart('طقم كاجوال بيج', 400, 'size-2')" style="background: #2ed573; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;">إضافة للسلة 🛒</button>
-        </div>
-    </div>
-
-    <!-- المنتج الثالث -->
-    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
-        <span class="product-badge" style="background: #ff4757; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px;">آخر تريند</span>
-        <img src="1000740079.jpg" alt="سويت شيرت أوفر سايز" class="product-image" style="width: 100%; max-height: 300px; object-fit: contain; margin-top: 10px; border-radius: 4px;">
-        <div class="product-info" style="margin-top: 15px;">
-            <h3 class="product-title" style="font-size: 18px; margin: 10px 0;">سويت شيرت أوفر سايز</h3>
-            <p class="product-description" style="color: #666; font-size: 14px;">خامة شتوية تقيلة وممتازة</p>
-            
-            <!-- اختيار المقاس -->
-            <div style="margin: 10px 0;">
-                <label for="size-3" style="font-size: 14px; margin-left: 5px;">المقاس:</label>
-                <select id="size-3" style="padding: 5px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                </select>
-            </div> 
-
-            <div class="product-price" style="font-weight: bold; color: #2ed573; font-size: 18px; margin: 10px 0;">280 جنيه</div>
-            <button class="add-to-cart-btn" onclick="addItemToCart('سويت شيرت أوفر سايز', 280, 'size-3')" style="background: #2ed573; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;">إضافة للسلة 🛒</button>
-        </div>
-    </div>
-
-</div>
 
         <!-- فرع التواصل والمعلومات السفلية -->
         <div class="contact-section">
