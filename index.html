@@ -489,7 +489,7 @@
                 const rows = jsonData.table.rows;
                 const grid = document.getElementById('productsGrid');
                 if (!grid) return;
-                //grid.innerHTML = "";
+                grid.innerHTML = "";
                 
                 rows.forEach(row => {
                     const id = row.c[0] ? row.c[0].v : "";
