@@ -358,9 +358,45 @@
 
     <div class="container">
         <h2 class="section-title">أحدث المنتجات المتاحة</h2>
-        <div class="products-grid" id="productsGrid">
-            <!-- جاري جلب المنتجات تلقائياً من جوجل شيت -->
+        <div class="products-grid">
+    
+    <!-- المنتج الأول -->
+    <div class="product-card">
+        <span class="product-badge">آخر تريند</span>
+        <img src="1000740075.jpg" alt="فستان أحمر" class="product-image">
+        <div class="product-info">
+            <h3 class="product-title">فستان أحمر</h3>
+            <p class="product-description">منتج رائع وخامة ممتازة</p>
+            <div class="product-price">350 جنيه</div>
+            <button class="add-to-cart-btn" onclick="addToCart('فستان أحمر', 350, '1000740075.jpg')">إضافة للسلة 🛒</button>
         </div>
+    </div>
+
+    <!-- المنتج الثاني -->
+    <div class="product-card">
+        <span class="product-badge">آخر تريند</span>
+        <img src="1000740077.jpg" alt="طقم كاجوال" class="product-image">
+        <div class="product-info">
+            <h3 class="product-title">طقم كاجوال بيج</h3>
+            <p class="product-description">أحدث صيحة ومريح جداً في اللبس</p>
+            <div class="product-price">400 جنيه</div>
+            <button class="add-to-cart-btn" onclick="addToCart('طقم كاجوال بيج', 400, '1000740077.jpg')">إضافة للسلة 🛒</button>
+        </div>
+    </div>
+
+    <!-- المنتج الثالث -->
+    <div class="product-card">
+        <span class="product-badge">آخر تريند</span>
+        <img src="1000740079.jpg" alt="سويت شيرت" class="product-image">
+        <div class="product-info">
+            <h3 class="product-title">سويت شيرت أوفر سايز</h3>
+            <p class="product-description">خامة شتوية تقيلة وممتازة</p>
+            <div class="product-price">280 جنيه</div>
+            <button class="add-to-cart-btn" onclick="addToCart('سويت شيرت أوفر سايز', 280, '1000740079.jpg')">إضافة للسلة 🛒</button>
+        </div>
+    </div>
+
+</div>
 
         <!-- فرع التواصل والمعلومات السفلية -->
         <div class="contact-section">
@@ -417,7 +453,7 @@
                 const rows = jsonData.table.rows;
                 const grid = document.getElementById('productsGrid');
                 if (!grid) return;
-                grid.innerHTML = "";
+                //grid.innerHTML = "";
                 
                 rows.forEach(row => {
                     const id = row.c[0] ? row.c[0].v : "";
@@ -467,12 +503,17 @@
         let cart = [];
 
         function addItemToCart(name, price, sizeSelectId) {
-            const sizeSelect = document.getElementById(sizeSelectId);
-            const selectedSize = sizeSelect ? sizeSelect.value : 'M';
-            
-            cart.push({ name, price: parseFloat(price), size: selectedSize });
-            updateCart();
-        }
+    // لو مفيش id للمقاس مبعوت، حط مقاس افتراضي 'M'
+    let selectedSize = 'M'; 
+    
+    if (sizeSelectId) {
+        const sizeSelect = document.getElementById(sizeSelectId);
+        selectedSize = sizeSelect ? sizeSelect.value : 'M';
+    }
+
+    cart.push({ name: name, price: parseFloat(price), size: selectedSize });
+    updateCart();
+}
 
         function updateCart() {
             document.getElementById('cartCount').innerText = cart.length;
@@ -521,7 +562,7 @@
             });
             message += `\n💰 الإجمالي الكلي: ${total} جنيه\n📍 التوصيل: القاهرة فقط`;
             
-            const whatsappUrl = `https://wa.me/201000740075?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/201144425383?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }
 
