@@ -630,7 +630,7 @@ function updateCart() {
                 message += `${index + 1}- ${item.name} (مقاس: ${item.size}) - ${item.price} جنيه\n`;
                 total += item.price;
             });
-            message += `\n💰 الإجمالي الكلي: ${total} جنيه\n📍 التوصيل: القاهرة فقط`;
+            message += `\n📦 التوصيل: داخل القاهرة فقط\n💰 إجمالي المنتجات: ${total} جنيه\n⚠️ (السعر ده + مصاريف الشحن هتتحدد عند التأكيد)`;
             
             const whatsappUrl = `https://wa.me/201144425383?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
