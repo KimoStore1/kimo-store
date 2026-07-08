@@ -508,7 +508,7 @@
                     productCard.innerHTML = `
                         <div class="badge-new">${badgeText || 'جديد'}</div>
                         <div class="product-img-holder">
-                            <img src="${image}" alt="${title}" onclick="document.getElementById('modalImg').src='${image}'; document.getElementById('imageModal').style.display='flex';" style="cursor: pointer;">
+                            <img src="${image}" alt="${title}" class="zoomable-img" style="cursor: pointer; width: 100%; height: 100%; object-fit: contain;">
                         </div>
                         <div class="product-details">
                             <h3 class="product-name">${title}</h3>
@@ -640,6 +640,12 @@ function updateCart() {
         document.addEventListener('DOMContentLoaded', () => {
             loadProductsFromSheet();
         });
+        document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('zoomable-img')) {
+        document.getElementById('modalImg').src = e.target.src;
+        document.getElementById('imageModal').style.display = 'flex';
+    }
+});
     </script>
     <div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;" onclick="this.style.display='none'">
     <img id="modalImg" style="max-width:90%; max-height:90%; border-radius:10px;">
