@@ -358,7 +358,7 @@
 
     <div class="container">
         <h2 class="section-title">أحدث المنتجات المتاحة</h2>
-        <div class="products-grid">
+        <div id="products-container" class="products-grid">
     
     <!-- المنتج الأول -->
     <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;">
@@ -487,9 +487,9 @@
                 const jsonData = JSON.parse(jsonString);
                 
                 const rows = jsonData.table.rows;
-                const grid = document.getElementById('productsGrid');
-                if (!grid) return;
-                //grid.innerHTML = "";
+                const grid = document.getElementById('products-container'); // اتأكد إن الـ div في الـ HTML واخد نفس الـ ID ده
+                      if (!grid) return;
+                      grid.innerHTML = ""; // فكينا التعليق عشان يمسح القديم ويحط الجديد نظيف
                 
                 rows.forEach(row => {
                     const id = row.c[0] ? row.c[0].v : "";
