@@ -406,7 +406,26 @@
         // دالة جلب المنتجات من الجوجل شيت الافتراضية قبل التعديل
         const sheetId = "1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnKl-Y8";
         const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
-
+        function generateSizeOptions(type) {
+    if (type === 'numbers') {
+        return `<option value="28">28</option>
+                <option value="30">30</option>
+                <option value="32">32</option>
+                <option value="34">34</option>
+                <option value="36">36</option>
+                <option value="38">38</option>
+                <option value="40">40</option>
+                <option value="42">42</option>
+                <option value="44">44</option>
+                <option value="46">46</option>`;
+    } else {
+        return `<option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>`;
+    }
+}
         async function loadProductsFromSheet() {
             try {
                 const response = await fetch(sheetUrl);
@@ -428,6 +447,7 @@
                     const description = row.c[4] ? row.c[4].v : "";
                     const sectionTitle = row.c[5] ? row.c[5].v : ""; // ده للعمود F
                     const badgeText = row.c[6] ? row.c[6].v : "";    // ده للعمود G
+                    const sizeType = row.c[7] ? row.c[7].v : 'letters';
                     
                     if (!id || id === "id" || id === "ID") return;
                     
@@ -447,11 +467,7 @@
             <div class="size-selector-wrapper" style="margin-bottom: 15px;">
                 <label>المقاس:</label>
                 <select id="${sizeSelectId}" class="size-select">
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
+                     ${generateSizeOptions(sizeType)}
                 </select>
             </div>
             <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}')">إضافة للسلة 🛒</button>
