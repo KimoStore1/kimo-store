@@ -559,7 +559,7 @@ function updateCart() {
                 message += `${index + 1}- ${item.name} (مقاس: ${item.size}) - ${item.price} جنيه\n`;
                 total += item.price;
             });
-            message += `\n💰 الإجمالي الكلي: ${total} جنيه\n📍 التوصيل: القاهرة فقط`;
+            message += `\n💰 الإجمالي الكلي: ${total} جنيه\n--------------------------\nيرجى كتابة العنوان بالتفصيل والمنطقة لتحديد مصاريف الشحن:\nالعنوان:`;
             
             const whatsappUrl = `https://wa.me/201144425383?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
