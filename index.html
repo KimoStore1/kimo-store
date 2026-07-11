@@ -342,21 +342,21 @@
         .marquee-container {
     width: 100%;
     overflow: hidden;
-    white-space: nowrap;
-    background: #000; /* ممكن تغير اللون لو عايز */
+    background: #000;
     padding: 10px 0;
     margin-top: 10px;
 }
 
 .marquee-text {
     display: inline-block;
-    padding-left: 100%;
-    animation: marquee 15s linear infinite;
+    white-space: nowrap;
+    /* بنحرك النص بنسبة 100% من عرضه عشان يلف */
+    animation: marquee 10s linear infinite;
 }
 
 @keyframes marquee {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }
     </style>
 </head>
@@ -369,12 +369,10 @@
         </div>
         <h1>كيمو ستور</h1>
         <div class="marquee-container">
-        <div class="marquee-text" style="color: #fff; font-size: 1rem;">
-            🔥 مرحباً بكم في متجر كيمو ستور لأحدث صيحات الملابس - توصيل متاح داخل القاهرة فقط - خصومات حصرية لفترة محدودة! 🔥 
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            🔥 مرحباً بكم في متجر كيمو ستور لأحدث صيحات الملابس - توصيل متاح داخل القاهرة فقط - خصومات حصرية لفترة محدودة! 🔥
-        </div>
+    <div class="marquee-text" style="color: #fff; font-size: 1rem;">
+        🔥 مرحباً بكم في متجر كيمو ستور لأحدث صيحات الملابس - توصيل متاح داخل القاهرة فقط - خصومات حصرية لفترة محدودة! 🔥
     </div>
+ </div>
     </header>
 
     <div class="hero-banner">
