@@ -436,27 +436,26 @@
                     const sizeSelectId = `size-${id}`;
                     
                     productCard.innerHTML = `
-                    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
-                    <div class="badge-new">${badgeText || 'جديد'}</div>
-                        <img src="${image}" alt="${title}" onclick="openModal('${image}')" style="width: 100%; height: 250px; object-fit: contain; cursor: pointer;">
-                        <div class="product-details">
-                            <h3 class="product-name">${title}</h3>
-                            <p style="font-size:0.9rem; color:#666; margin-bottom:10px; height:40px; overflow:hidden;">${description}</p>
-                            <div class="product-price">${price} <span>جنيه</span></div>
-                            
-                            <div class="size-selector-wrapper" style="margin-bottom: 15px;">
-                                <label>المقاس:</label>
-                                <select id="${sizeSelectId}" class="size-select">
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
-                                    <option value="XL">XL</option>
-                                    <option value="XXL">XXL</option>
-                                </select>
-                            </div>
-                            
-                            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}')">إضافة للسلة 🛒</button>
-                        </div>
-                    `;
+    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
+        <div class="badge-new">${badgeText || 'جديد'}</div>
+        <img src="${image}" alt="${title}" onclick="openModal('${image}')" style="width: 100%; height: 250px; object-fit: contain; cursor: pointer;">
+        <div class="product-details">
+            <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
+            <h3 class="product-name">${title}</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px; height: 40px; overflow: hidden;">${description}</p>
+            <div class="product-price">${price} <span>جنيه</span></div>
+            <div class="size-selector-wrapper" style="margin-bottom: 15px;">
+                <label>المقاس:</label>
+                <select id="${sizeSelectId}" class="size-select">
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+            </div>
+            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}')">إضافة للسلة 🛒</button>
+        </div>
+    </div>`;
                     grid.appendChild(productCard);
                 });
             } catch (error) {
