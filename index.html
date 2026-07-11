@@ -438,7 +438,7 @@
                     productCard.innerHTML = `
                     <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
                     <div class="badge-new">${badgeText || 'جديد'}</div>
-                        <img src="${image}" alt="${title}" style="width: 100%; height: 250px; object-fit: contain;">
+                        <img src="${image}" alt="${title}" onclick="openModal('${image}')" style="width: 100%; height: 250px; object-fit: contain; cursor: pointer;">
                         <div class="product-details">
                             <h3 class="product-name">${title}</h3>
                             <p style="font-size:0.9rem; color:#666; margin-bottom:10px; height:40px; overflow:hidden;">${description}</p>
@@ -547,6 +547,12 @@ function updateCart() {
                 modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
             }
         }
+        function openModal(imgSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modal.style.display = 'flex';
+    modalImg.src = imgSrc;
+}
 
         function sendOrderToWhatsApp() {
             if (cart.length === 0) {
@@ -559,7 +565,7 @@ function updateCart() {
                 message += `${index + 1}- ${item.name} (مقاس: ${item.size}) - ${item.price} جنيه\n`;
                 total += item.price;
             });
-            message += `\n💰 الإجمالي الكلي: ${total} جنيه\n--------------------------\nيرجى كتابة العنوان بالتفصيل والمنطقة لتحديد مصاريف الشحن:\nالعنوان:`;
+            message += `\n💰 الإجمالي الكلي: ${total} جنيه\n🚚 التوصيل متاح داخل القاهرة فقط\n--------------------------\nيرجى كتابة العنوان بالتفصيل والمنطقة:\nالعنوان:`;
             
             const whatsappUrl = `https://wa.me/201144425383?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
@@ -570,5 +576,10 @@ function updateCart() {
             loadProductsFromSheet();
         });
     </script>
+    <!-- Modal لعرض الصورة -->
+<div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
+    <span onclick="document.getElementById('imageModal').style.display='none'" style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;">&times;</span>
+    <img id="modalImg" style="max-width:90%; max-height:80%;">
+</div>
 </body>
 </html>
