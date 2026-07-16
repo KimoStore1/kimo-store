@@ -639,13 +639,20 @@ window.onclick = function(event) {
     }
 }
 function filterProducts(category) {
-    const products = document.querySelectorAll('.product-card');
+    const grid = document.getElementById("productsGrid");
+    if (!grid) return; // لو مفيش grid، اخرج من الدالة
+    
+    const products = grid.querySelectorAll('.product-card');
+    
     products.forEach(product => {
-        const productCategory = product.querySelector('h4').innerText;
-        if (category === 'الكل' || productCategory === category) {
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
+        const titleElement = product.querySelector('h4');
+        if (titleElement) {
+            const productCategory = titleElement.innerText;
+            if (category === 'الكل' || productCategory === category) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
         }
     });
 }
