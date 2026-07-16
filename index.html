@@ -638,6 +638,17 @@ window.onclick = function(event) {
         }
     }
 }
+function filterProducts(category) {
+    const products = document.querySelectorAll('.product-card');
+    products.forEach(product => {
+        const productCategory = product.querySelector('h4').innerText;
+        if (category === 'الكل' || productCategory === category) {
+            product.style.display = 'block';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+}
     </script>
     <!-- Modal لعرض الصورة -->
 <div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
