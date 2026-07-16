@@ -382,11 +382,6 @@
 
     <div class="container">
         <h2 class="section-title">أحدث المنتجات المتاحة</h2>
-        <div class="category-filters" style="text-align: center; margin-bottom: 20px;">
-    <button onclick="filterProducts('الكل')">الكل</button>
-    <button onclick="filterProducts('تيشرتات')">تيشرتات</button>
-    <button onclick="filterProducts('دريسات')">دريسات</button>
-</div>
         <<div class="products-grid" id="productsGrid">
     
     </div>
@@ -431,7 +426,6 @@
     </div>
 
     <script>
-        let allProducts = [];
         // دالة جلب المنتجات من الجوجل شيت الافتراضية قبل التعديل
         const sheetId = "1SeSHwjyPWvNoIM7Q_g7sn51ZQkx90ObJZF-ECnKl-Y8";
         const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
@@ -457,69 +451,54 @@
 }
         async function loadProductsFromSheet() {
             try {
-                try {
-    const response = await fetch(sheetUrl);
-    const text = await response.text();
-    const jsonString = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
-    const jsonData = JSON.parse(jsonString);
-    
-    // 1. احفظ البيانات في المتغير العام اللي عرفناه فوق
-    allProducts = jsonData.table.rows;
-    
-    // 2. اعرض كل المنتجات لأول مرة
-    renderProducts(allProducts);
-} catch (e) {
-    console.error("خطأ في تحميل البيانات", e);
-}
-    function renderProducts(products) {
-    const grid = document.getElementById('productsGrid');
-    grid.innerHTML = "";
-    
-    products.forEach(row => {
-        const id = row.c[0] ? row.c[0].v : "";
-        const title = row.c[1] ? row.c[1].v : "";
-        const price = row.c[2] ? row.c[2].v : "";
-        const image = row.c[3] ? row.c[3].v : "";
-        const description = row.c[4] ? row.c[4].v : "";
-        const sectionTitle = row.c[5] ? row.c[5].v : "";
-        const badgeText = row.c[6] ? row.c[6].v : "";
-        const sizeType = row.c[7] ? row.c[7].v : "letters";
-
-        grid.innerHTML += `
-            <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
-                <div class="badge-new">${badgeText || 'جديد'}</div>
-                <img src="${image}" alt="${title}" onclick="openModal('${image}')" style="width: 100%; height: 250px; object-fit: cover;">
-                <div class="product-details">
-                    <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
-                    <h3 class="product-name">${title}</h3>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">${description}</p>
-                    <div class="product-price">${price} <span>جنيه</span></div>
-                    <div class="size-selector-wrapper" style="margin-bottom: 15px;">
-                        <label>المقاس</label>
-                        <select id="size-${id}" class="size-select">${generateSizeOptions(sizeType)}</select>
-                    </div>
-                    <button onclick="addToCart(${id})">إضافة للسلة</button>
-                </div>
+                const response = await fetch(sheetUrl);
+                const text = await response.text();
+                
+                const jsonString = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
+                const jsonData = JSON.parse(jsonString);
+                
+                const rows = jsonData.table.rows;
+                const grid = document.getElementById('productsGrid');
+                if (!grid) return;
+                grid.innerHTML = "";
+                
+                rows.forEach(row => {
+                    const id = row.c[0] ? row.c[0].v : "";
+                    const title = row.c[1] ? row.c[1].v : "";
+                    const price = row.c[2] ? row.c[2].v : "";
+                    const image = row.c[3] ? row.c[3].v : "";
+                    const description = row.c[4] ? row.c[4].v : "";
+                    const sectionTitle = row.c[5] ? row.c[5].v : ""; // ده للعمود F
+                    const badgeText = row.c[6] ? row.c[6].v : "";    // ده للعمود G
+                    const sizeType = row.c[7] ? row.c[7].v : 'letters';
+                    
+                    if (!id || id === "id" || id === "ID") return;
+                    
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    const sizeSelectId = `size-${id}`;
+                    
+                    productCard.innerHTML = `
+    <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
+        <div class="badge-new">${badgeText || 'جديد'}</div>
+        <img src="${image}" alt="${title}" onclick="openModal('${image}')" style="width: 100%; height: 250px; object-fit: contain; cursor: pointer;">
+        <div class="product-details">
+            <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
+            <h3 class="product-name">${title}</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px; height: 40px; overflow: hidden;">${description}</p>
+            <div class="product-price">${price} <span>جنيه</span></div>
+            <div class="size-selector-wrapper" style="margin-bottom: 15px;">
+                <label>المقاس:</label>
+                <select id="${sizeSelectId}" class="size-select">
+                     ${generateSizeOptions(sizeType)}
+                </select>
             </div>
-        `;
-    });
-}
-// دالة الفلترة الأساسية
-// دالة الفلترة (مرة واحدة فقط)
-function filterProducts(category) {
-    if (category === 'الكل') {
-        renderProducts(allProducts);
-    } else {
-        const filtered = allProducts.filter(row => {
-            const rowCategory = row.c[5] ? row.c[5].v : "";
-            return rowCategory === category;
-        });
-        renderProducts(filtered);
-    }
-}
- // القوس ده يقفل الدالة دي فقط
-
-           } catch (error) {
+            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}')">إضافة للسلة 🛒</button>
+        </div>
+    </div>`;
+                    grid.appendChild(productCard);
+                });
+            } catch (error) {
                 console.error("Error loading products:", error);
             }
         }
@@ -625,7 +604,7 @@ function updateCart() {
                 message += `${index + 1}- ${item.name} (مقاس: ${item.size}) - ${item.price} جنيه\n`;
                 total += item.price;
             });
-            message += `\n💰 الإجمالي للمنتجات: ${total} جنيه (يُضاف مصاريف الشحن عند التواصل)\n🚚 التوصيل متاح داخل القاهرة فقط\n--------------------------\nيرجى كتابة العنوان بالتفصيل والمنطقة:\nالعنوان: `;
+            message += `\n💰 الإجمالي الكلي: ${total} جنيه\n🚚 التوصيل متاح داخل القاهرة فقط\n--------------------------\nيرجى كتابة العنوان بالتفصيل والمنطقة:\nالعنوان:`;
             
             const whatsappUrl = `https://wa.me/201144425383?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
