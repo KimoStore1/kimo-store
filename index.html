@@ -25,6 +25,26 @@
             padding: 0;
             font-family: 'Cairo', sans-serif;
         }
+        .drop-item {
+        color: #333;
+        padding: 15px 30px;
+        text-decoration: none;
+        display: block;
+        transition: 0.3s;
+        text-align: center;
+        font-size: 1.2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .drop-item:hover {
+        background-color: #880e4f;
+        color: white;
+    }
+    /* ده اللون اللي هيفضل ثابت لما تضغط على اختيار */
+    .drop-item.active {
+        background-color: #880e4f;
+        color: white;
+    }
 
         body {
             background-color: var(--light-bg);
@@ -662,5 +682,16 @@ function filterProducts(category) {
     <span onclick="document.getElementById('imageModal').style.display='none'" style="position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;">&times;</span>
     <img id="modalImg" style="max-width:90%; max-height:80%;">
 </div>
+<script>
+    // ده كود عشان لما تضغط على أي اختيار يتلون
+    document.querySelectorAll('.drop-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // 1. نشيل التلوين من الكل
+            document.querySelectorAll('.drop-item').forEach(i => i.classList.remove('active'));
+            // 2. نحط التلوين على اللي ضغطت عليه بس
+            this.classList.add('active');
+        });
+    });
+</script>
 </body>
 </html>
