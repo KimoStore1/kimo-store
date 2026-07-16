@@ -35,7 +35,35 @@
         font-size: 1.2rem;
         border-bottom: 1px solid #eee;
     }
+    .drop-item {
+        color: #333;
+        padding: 15px 30px;
+        text-decoration: none;
+        display: block;
+        transition: 0.3s;
+        text-align: center;
+        font-size: 1.2rem;
+        border-bottom: 1px solid #eee;
+    }
 
+    /* حط الكود الجديد هنا بالظبط */
+    .category-btn {
+        background-color: #880e4f !important;
+        color: white !important;
+        padding: 15px 40px !important;
+        border: none !important;
+        border-radius: 50px !important;
+        font-size: 1.2rem !important;
+        font-weight: bold !important;
+        cursor: pointer !important;
+        transition: 0.3s !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    }
+
+    .category-btn:hover {
+        background-color: #ad1a63 !important;
+        transform: scale(1.05);
+    }
     .drop-item:hover {
         background-color: #880e4f;
         color: white;
@@ -401,7 +429,7 @@
     </div>
     <!-- أيقونة القائمة -->
 <div class="category-menu" style="text-align: center; margin: 20px;">
-    <button class="menu-btn" onclick="toggleMenu()" style="background: #5d0f36; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; border: none; font-family: sans-serif;">☰ التصنيفات</button>
+    <button class="menu-btn category-btn" onclick="toggleMenu()">📂 التصنيفات</button>
     <div id="categoryDropdown" class="dropdown-content" style="display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 100; left: 50%; transform: translateX(-50%); border-radius: 5px;">
         <a href="javascript:void(0)" onclick="filterProducts('تيشرتات')" style="color: black; padding: 12px 16px; text-decoration: none; display: block;">تيشرتات</a>
 <a href="javascript:void(0)" onclick="filterProducts('بناطيل')" style="color: black; padding: 12px 16px; text-decoration: none; display: block;">بناطيل</a>
