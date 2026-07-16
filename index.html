@@ -9,54 +9,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
     <style>
-    :root {
-        --main-purple: #880e4f;
-        --dark-bg: #111111;
-        --light-bg: #fdfafb;
-        --text-dark: #222222;
-        --text-light: #ffffff;
-        --whatsapp-green: #25D366;
-        --accent-yellow: #ffd54f;
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Cairo', sans-serif;
-    }
-
-    .drop-item {
-        color: #333;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        transition: 0.3s;
-        text-align: center;
-    }
-
-    .drop-item:hover {
-        background-color: #7a1e4a;
-        color: white;
-    }
-
-    body {
-        background-color: var(--light-bg);
-        color: var(--text-dark);
-        padding-bottom: 120px;
-    }
-</style>
-
-        body {
-            background-color: var(--light-bg);
-            color: var(--text-dark);
-            padding-bottom: 120px;
+        /* 1. المتغيرات */
+        :root {
+            --main-purple: #880e4f;
+            --dark-bg: #111111;
+            --light-bg: #fdfafb;
+            --text-dark: #222222;
+            --text-light: #ffffff;
+            --whatsapp-green: #25D366;
+            --accent-yellow: #ffd54f;
         }
 
-        .social-btn.whatsapp {
-            background-color: #25D366 !important;
-            color: white !important;
-        }
+        /* 2. التنسيق العام */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--light-bg); color: var(--text-dark); padding-bottom: 120px; }
+
+        /* 3. تنسيق القائمة الاحترافي */
+        .drop-item { color: #333; padding: 12px 16px; text-decoration: none; display: block; transition: 0.3s; text-align: center; }
+        .drop-item:hover { background-color: #7a1e4a; color: white; }
+
+        /* 4. تنسيق الهيدر */
+        header { background-color: var(--dark-bg); color: var(--text-light); text-align: center; padding: 30px 15px; border-bottom: 5px solid var(--main-purple); }
+        .logo-placeholder { width: 150px; height: 150px; background-color: var(--main-purple); border-radius: 50%; margin: 0 auto 15px auto; border: 4px solid var(--accent-yellow); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3); overflow: hidden; }
+    </style>
 
         /* الهيدر واللوجو */
         header {
