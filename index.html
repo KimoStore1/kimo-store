@@ -544,6 +544,7 @@
                     const id = row.c[0] ? row.c[0].v : "";
                     const title = row.c[1] ? row.c[1].v : "";
                     const price = row.c[2] ? row.c[2].v : "";
+                    const oldPrice = row.c[9] ? row.c[9].v : "";
                     const image = row.c[3] ? row.c[3].v : "";
                     const description = row.c[4] ? row.c[4].v : "";
                     const sectionTitle = row.c[5] ? row.c[5].v : ""; // ده للعمود F
@@ -565,7 +566,10 @@
             <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
             <h3 class="product-name">${title}</h3>
             <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px; height: 40px; overflow: hidden;">${description}</p>
-            <div class="product-price">${price} <span>جنيه</span></div>
+            <div class="product-price" style="margin-bottom: 15px;">
+    ${oldPrice ? `<span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-left: 5px;">${oldPrice}</span>` : ""}
+    <span>${price} جنيه</span>
+</div>
             <div class="size-selector-wrapper" style="margin-bottom: 15px;">
                 <label>المقاس:</label>
                 <select id="${sizeSelectId}" class="size-select">
