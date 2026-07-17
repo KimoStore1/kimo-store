@@ -574,7 +574,7 @@
                 <div class="color-options">
                ${colors.map(color => {
     let colorName = colorMap[color.trim()] || "غير محدد";
-    return `<div class="color-swatch" style="background-color: ${color.trim()};" onclick="selectColor(this, '${colorName}')"></div>`;
+    return `<div class="color-swatch" style="background-color: ${color.trim()};" onclick="selectColor(this, '${color.trim()}')"></div>`
 }).join('')}
             </div>
             </div>
