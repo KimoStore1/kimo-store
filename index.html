@@ -767,6 +767,11 @@ function filterProducts(category) {
         });
     });
    function selectColor(element, colorName) {
+    // طبعلي الـ background-color الحقيقي بتاع العنصر اللي ضغطت عليه
+    console.log("كود اللون الحقيقي:", element.style.backgroundColor); 
+    console.log("الاسم اللي وصل للدالة:", colorName);
+    
+    // ... باقي الكود ...
     const productCard = element.closest('.product-card');
     const parent = element.parentElement;
     
