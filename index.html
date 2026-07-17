@@ -575,7 +575,7 @@
                 ${colors.map(color => `<div class="color-swatch" style="background-color: ${color.trim()}" onclick="selectColor(this)"></div>`).join('')}
             </div>
             </div>
-            <button class="btn-add-cart" onclick="addToCart('${title}', '${price}', '${sizeSelectId}', this.parentElement)">إضافة للسلة 🛒</button>
+            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}', this.parentElement)">إضافة للسلة 🛒</button>
         </div>
     </div>`;
                     grid.appendChild(productCard);
