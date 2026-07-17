@@ -618,6 +618,7 @@
     // دلوقتي نقدر نجيب اللون من الـ dataset بتاع الـ productCard
     const selectedColor = productCard.dataset.selectedColor || "غير محدد";
 
+    // اتأكد إن السطر ده في دالة addItemToCart هو ده بالظبط:
     cart.push({ name: name, price: parseFloat(price), size: selectedSize, color: selectedColor });
     updateCart();
 }
@@ -774,8 +775,8 @@ function filterProducts(category) {
     });
     element.classList.add('selected');
     
-    // حفظنا الاسم العربي في الـ dataset
-    productCard.dataset.selectedColor = colorName; 
+    productCard.dataset.selectedColor = colorName;
+    console.log("تم حفظ اللون في الكارت:", productCard.dataset.selectedColor); // السطر ده مهم
 }
 </script>
 </body>
