@@ -572,7 +572,10 @@
                      ${generateSizeOptions(sizeType)}
                 </select>
                 <div class="color-options">
-                ${colors.map(color => `<div class="color-swatch" style="background-color: ${color.trim()}" onclick="selectColor(this)"></div>`).join('')}
+               ${colors.map(color => {
+    let colorName = colorMap[color.trim()] || "غير محدد";
+    return `<div class="color-swatch" style="background-color: ${color.trim()};" onclick="selectColor(this, '${colorName}')"></div>`;
+}).join('')}
             </div>
             </div>
             <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}', this.closest('.product-card'))">إضافة للسلة 🛒</button>
@@ -611,8 +614,7 @@
     
     // سطر جلب اللون المختار
     // جوه دالة addItemToCart
-        const rawColor = parentElement.dataset.selectedColor;
-        const selectedColor = colorMap[rawColor] || "غير محدد";
+        const selectedColor = parentElement.dataset.selectedColor || "غير محدد";
 
 // وبعدها كمل باقي الكود بتاعك واستخدم المتغير selectedColor ده في الرسالة
 
@@ -763,17 +765,17 @@ function filterProducts(category) {
             this.classList.add('active');
         });
     });
-   function selectColor(element) {
-    const productCard = element.closest('.product-card'); // هنجيب الكارت كله
+   function selectColor(element, colorName) {
+    const productCard = element.closest('.product-card');
     const parent = element.parentElement;
-
+    
     parent.querySelectorAll('.color-swatch').forEach(swatch => {
         swatch.classList.remove('selected');
     });
     element.classList.add('selected');
-
-    // هنخزن اللون في الكارت كله بدل الـ parent بتاع الألوان بس
-    productCard.dataset.selectedColor = element.style.backgroundColor;
+    
+    // حفظنا الاسم العربي في الـ dataset
+    productCard.dataset.selectedColor = colorName; 
 }
 </script>
 </body>
