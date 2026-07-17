@@ -574,7 +574,8 @@
                 <div class="color-options">
                ${colors.map(color => {
     let colorName = colorMap[color.trim()] || "غير محدد";
-    return `<div class="color-swatch" style="background-color: ${color.trim()};" onclick="selectColor(this, '${color.trim()}')"></div>`
+    // بدلاً من إرسال color.trim()، أرسل المتغير colorName
+return `<div class="color-swatch" style="background-color: ${color.trim()};" onclick="selectColor(this, '${colorName}')"></div>`
 }).join('')}
             </div>
             </div>
@@ -588,6 +589,14 @@
             }
         }
         const colorMap = {
+    // إضافة أسماء الألوان بالانجليزي لضمان الترجمة:
+    'black': 'أسود',
+    'red': 'أحمر',
+    'green': 'أخضر',
+    'blue': 'أزرق',
+    'white': 'أبيض',
+    
+    // القيم الأصلية اللي عندك:
     "rgb(0, 0, 0)": "أسود",
     "rgb(255, 255, 0)": "أصفر",
     "rgb(255, 255, 255)": "أبيض",
@@ -597,10 +606,10 @@
     "rgb(128, 128, 128)": "رمادي",
     "rgb(0, 128, 0)": "أخضر",
     "rgb(255, 165, 0)": "برتقالي",
-    "rgb(255, 192, 203)": "بمبي (زهري)",
+    "rgb(255, 192, 203)": "بمبي",
     "rgb(165, 42, 42)": "بني",
     "rgb(245, 245, 220)": "بيج",
-    "rgb(128, 0, 0)": "نبيتي"
+    "rgb(128, 0, 0)": "تيبيتي"
 };
         // سلة المشتريات المؤقتة
         let cart = [];
@@ -767,11 +776,6 @@ function filterProducts(category) {
         });
     });
    function selectColor(element, colorName) {
-    // طبعلي الـ background-color الحقيقي بتاع العنصر اللي ضغطت عليه
-    console.log("كود اللون الحقيقي:", element.style.backgroundColor); 
-    console.log("الاسم اللي وصل للدالة:", colorName);
-    
-    // ... باقي الكود ...
     const productCard = element.closest('.product-card');
     const parent = element.parentElement;
     
@@ -780,7 +784,8 @@ function filterProducts(category) {
     });
     element.classList.add('selected');
     
-    productCard.dataset.selectedColor = colorName;
+    // تأكد إننا بنخزن الـ colorName اللي وصل للدالة (وهو ده الاسم العربي)
+    productCard.dataset.selectedColor = colorName; 
     console.log("تم حفظ اللون في الكارت:", productCard.dataset.selectedColor); // السطر ده مهم
 }
 </script>
