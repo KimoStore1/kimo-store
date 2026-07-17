@@ -578,7 +578,7 @@
 }).join('')}
             </div>
             </div>
-            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}', this.closest('.product-card'))">إضافة للسلة 🛒</button>
+            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}', this)">إضافة للسلة</button>
         </div>
     </div>`;
                     grid.appendChild(productCard);
@@ -605,18 +605,18 @@
         // سلة المشتريات المؤقتة
         let cart = [];
 
-        function addItemToCart(name, price, sizeSelectId, parentElement) {
+        function addItemToCart(name, price, sizeSelectId, btnElement) {
+    // هنا بنجيب الـ productCard باستخدام الـ element اللي مبعوت (الزرار)
+    const productCard = btnElement.closest('.product-card');
+
     let selectedSize = 'M';
     if (sizeSelectId) {
         const sizeSelect = document.getElementById(sizeSelectId);
         selectedSize = sizeSelect ? sizeSelect.value : 'M';
     }
-    
-    // سطر جلب اللون المختار
-    // جوه دالة addItemToCart
-        const selectedColor = parentElement.dataset.selectedColor || "غير محدد";
 
-// وبعدها كمل باقي الكود بتاعك واستخدم المتغير selectedColor ده في الرسالة
+    // دلوقتي نقدر نجيب اللون من الـ dataset بتاع الـ productCard
+    const selectedColor = productCard.dataset.selectedColor || "غير محدد";
 
     cart.push({ name: name, price: parseFloat(price), size: selectedSize, color: selectedColor });
     updateCart();
