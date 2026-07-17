@@ -584,7 +584,21 @@
                 console.error("Error loading products:", error);
             }
         }
-
+        const colorMap = {
+    "rgb(0, 0, 0)": "أسود",
+    "rgb(255, 255, 0)": "أصفر",
+    "rgb(255, 255, 255)": "أبيض",
+    "rgb(255, 0, 0)": "أحمر",
+    "rgb(0, 0, 255)": "أزرق",
+    "rgb(0, 0, 128)": "كحلي",
+    "rgb(128, 128, 128)": "رمادي",
+    "rgb(0, 128, 0)": "أخضر",
+    "rgb(255, 165, 0)": "برتقالي",
+    "rgb(255, 192, 203)": "بمبي (زهري)",
+    "rgb(165, 42, 42)": "بني",
+    "rgb(245, 245, 220)": "بيج",
+    "rgb(128, 0, 0)": "نبيتي"
+};
         // سلة المشتريات المؤقتة
         let cart = [];
 
@@ -596,7 +610,11 @@
     }
     
     // سطر جلب اللون المختار
-    const selectedColor = parentElement.dataset.selectedColor || "غير محدد";
+    // جوه دالة addItemToCart
+        const rawColor = parentElement.dataset.selectedColor;
+        const selectedColor = colorMap[rawColor] || "غير محدد";
+
+// وبعدها كمل باقي الكود بتاعك واستخدم المتغير selectedColor ده في الرسالة
 
     cart.push({ name: name, price: parseFloat(price), size: selectedSize, color: selectedColor });
     updateCart();
