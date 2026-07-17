@@ -68,6 +68,26 @@
         background-color: #880e4f;
         color: white;
     }
+    .color-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.color-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.color-swatch.selected {
+    border: 3px solid #880e4f;
+    transform: scale(1.1);
+}
     /* ده اللون اللي هيفضل ثابت لما تضغط على اختيار */
     .drop-item.active {
         background-color: #880e4f;
@@ -529,6 +549,7 @@
                     const sectionTitle = row.c[5] ? row.c[5].v : ""; // ده للعمود F
                     const badgeText = row.c[6] ? row.c[6].v : "";    // ده للعمود G
                     const sizeType = row.c[7] ? row.c[7].v : 'letters';
+                    const colors = row.c[8] ? row.c[8].v.split(',') : []; // بنحول الألوان اللي في الإكسل لمصفوفة
                     
                     if (!id || id === "id" || id === "ID") return;
                     
@@ -550,6 +571,9 @@
                 <select id="${sizeSelectId}" class="size-select">
                      ${generateSizeOptions(sizeType)}
                 </select>
+                <div class="color-options">
+                ${colors.map(color => `<div class="color-swatch" style="background-color: ${color.trim()}" onclick="selectColor(this)"></div>`).join('')}
+            </div>
             </div>
             <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}')">إضافة للسلة 🛒</button>
         </div>
@@ -720,6 +744,13 @@ function filterProducts(category) {
             this.classList.add('active');
         });
     });
+    function selectColor(element) {
+    const parent = element.parentElement;
+    parent.querySelectorAll('.color-swatch').forEach(swatch => {
+        swatch.classList.remove('selected');
+    });
+    element.classList.add('selected');
+}
 </script>
 </body>
 </html>
