@@ -575,7 +575,7 @@
                 ${colors.map(color => `<div class="color-swatch" style="background-color: ${color.trim()}" onclick="selectColor(this)"></div>`).join('')}
             </div>
             </div>
-            <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}')">إضافة للسلة 🛒</button>
+            <button class="btn-add-cart" onclick="addToCart('${title}', '${price}', '${sizeSelectId}', this.parentElement)">إضافة للسلة 🛒</button>
         </div>
     </div>`;
                     grid.appendChild(productCard);
@@ -588,16 +588,17 @@
         // سلة المشتريات المؤقتة
         let cart = [];
 
-        function addItemToCart(name, price, sizeSelectId) {
-    // لو مفيش id للمقاس مبعوت، حط مقاس افتراضي 'M'
-    let selectedSize = 'M'; 
-    
+        function addItemToCart(name, price, sizeSelectId, parentElement) {
+    let selectedSize = 'M';
     if (sizeSelectId) {
         const sizeSelect = document.getElementById(sizeSelectId);
         selectedSize = sizeSelect ? sizeSelect.value : 'M';
     }
+    
+    // سطر جلب اللون المختار
+    const selectedColor = parentElement.dataset.selectedColor || "غير محدد";
 
-    cart.push({ name: name, price: parseFloat(price), size: selectedSize });
+    cart.push({ name: name, price: parseFloat(price), size: selectedSize, color: selectedColor });
     updateCart();
 }
 
@@ -683,7 +684,7 @@ function updateCart() {
             let message = "طلب جديد من كيمو ستور 🛒:\n\n";
             let total = 0;
             cart.forEach((item, index) => {
-                message += `${index + 1}- ${item.name} (مقاس: ${item.size}) - ${item.price} جنيه\n`;
+                message += `${index + 1}- ${item.name} (مقاس: ${item.size} - لون: ${item.color}) - ${item.price} جنيه\n`;
                 total += item.price;
             });
             message += `\n💰 الإجمالي للمنتجات: ${total} جنيه (يُضاف مصاريف الشحن عند التواصل)\n🚚 التوصيل متاح داخل القاهرة فقط\n--------------------------\nيرجى كتابة العنوان بالتفصيل والمنطقة:\nالعنوان: `;
@@ -750,6 +751,9 @@ function filterProducts(category) {
         swatch.classList.remove('selected');
     });
     element.classList.add('selected');
+    
+    // السطر ده هو اللي بيحفظ اللون المختار في الكارت
+    parent.dataset.selectedColor = element.style.backgroundColor;
 }
 </script>
 </body>
