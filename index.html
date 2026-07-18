@@ -562,14 +562,13 @@
                     productCard.innerHTML = `
     <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
         <div class="badge-new">${badgeText || 'جديد'}</div>
-        <div class="product-slider" style="position: relative; height: 250px; overflow: hidden; border-radius: 8px;">
+        <div class="product-slider" style="position: relative; height: auto; overflow: hidden; border-radius: 8px;">
     ${imagesArray.map((img, index) => `
         <img src="${img.trim()}" 
              class="slide" 
              style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 100%; object-fit: cover;" 
              onclick="openModal('${img.trim()}')">
     `).join('')}
-</</div>
         <div class="product-details">
             <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
             <h3 class="product-name">${title}</h3>
