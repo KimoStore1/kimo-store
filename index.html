@@ -399,7 +399,25 @@
             padding: 20px;
             position: relative;
         }
+        .toast-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #333;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        animation: fadeInOut 3s forwards;
+    }
 
+    @keyframes fadeInOut {
+        0% { opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { opacity: 0; }
+    }
         .close-modal {
             position: absolute;
             top: 15px;
@@ -670,6 +688,7 @@ setInterval(autoSlide, 3000);
     // اتأكد إن السطر ده في دالة addItemToCart هو ده بالظبط:
     cart.push({ name: name, price: parseFloat(price), size: selectedSize, color: (colorMap[selectedColor] || selectedColor) });
     updateCart();
+    showToast("تم إضافة المنتج للسلة بنجاح! ✅"); 
 }
 
         function removeFromCart(index) {
@@ -863,6 +882,16 @@ function moveSlide(btn, direction) {
     };
     
     document.body.appendChild(lightbox);
+}
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast-message';
+    toast.innerText = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        document.body.removeChild(toast);
+    }, 3000);
 }
 </script>
 </body>
