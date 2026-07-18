@@ -562,7 +562,7 @@
                     productCard.innerHTML = `
     <div class="product-card" style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center;">
         <div class="badge-new">${badgeText || 'جديد'}</div>
-        <div class="product-slider" style="position: relative; height: 250px; overflow: hidden; border-radius: 8px;">
+        <div class="product-slider" style="position: relative; height: auto; overflow: hidden; border-radius: 8px;">
     ${imagesArray.map((img, index) => `
         <img src="${img.trim()}" 
              class="slide" 
