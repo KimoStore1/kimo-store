@@ -566,8 +566,8 @@
         <div class="badge-new">${badgeText || 'جديد'}</div>
         <div class="product-slider" style="position: relative; width: 100%; height: 250px; overflow: hidden; border-radius: 8px; cursor: pointer;">
    ${imagesArray.map((img, index) => `
-    <div class="slide" onclick="openLightbox('${img.trim()}')" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 250px; cursor: pointer;">
-        <img src="${img.trim()}" style="width: 100%; height: 100%; object-fit: contain; background-color: #f9f9f9; pointer-events: none;">
+    <div class="slide" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 250px; position: relative;">
+        <img src="${img.trim()}" onclick="openLightbox('${img.trim()}')" style="width: 100%; height: 100%; object-fit: contain; background-color: #f9f9f9; cursor: pointer;">
     </div>
 `).join('')}
     
