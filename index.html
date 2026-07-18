@@ -564,14 +564,15 @@
     // بنضيف الـ HTML جواه (بدون تكرار الـ div بتاع الـ product-card)
     productCard.innerHTML = `
         <div class="badge-new">${badgeText || 'جديد'}</div>
-        <div class="product-slider" style="position: relative; width: 100%; height: 250px; overflow: hidden; border-radius: 8px;">
+        <div class="product-slider" style="position: relative; width: 100%; height: 250px; overflow: hidden; border-radius: 8px; cursor: pointer;">
     ${imagesArray.map((img, index) => `
-        <img src="${img.trim()}" class="slide" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 250px; object-fit: cover;">
+        <img src="${img.trim()}" class="slide" onclick="openLightbox('${img.trim()}')" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 250px; object-fit: cover; cursor: pointer;">
     `).join('')}
+    
     ${imagesArray.length > 1 ? `
-    <button onclick="event.stopPropagation(); moveSlide(this, -1)" style="position: absolute; top: 50%; left: 5px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 8px; z-index: 10; border-radius: 5px;">❮</button>
-    <button onclick="event.stopPropagation(); moveSlide(this, 1)" style="position: absolute; top: 50%; right: 5px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 8px; z-index: 10; border-radius: 5px;">❯</button>
-` : ''}
+        <button onclick="event.stopPropagation(); moveSlide(this, -1)" style="position: absolute; top: 50%; left: 5px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 8px; z-index: 10; border-radius: 5px; font-size: 18px;">❮</button>
+        <button onclick="event.stopPropagation(); moveSlide(this, 1)" style="position: absolute; top: 50%; right: 5px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 8px; z-index: 10; border-radius: 5px; font-size: 18px;">❯</button>
+    ` : ''}
 </div>
         <div class="product-details">
             <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
