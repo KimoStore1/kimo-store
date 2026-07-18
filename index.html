@@ -545,7 +545,8 @@
                     const title = row.c[1] ? row.c[1].v : "";
                     const price = row.c[2] ? row.c[2].v : "";
                     const oldPrice = row.c[9] ? row.c[9].v : "";
-                    const image = row.c[3] ? row.c[3].v : "";
+                    const imagesString = row.c[3] ? row.c[3].v : ""; 
+                    const imagesArray = imagesString.split(',');
                     const description = row.c[4] ? row.c[4].v : "";
                     const sectionTitle = row.c[5] ? row.c[5].v : ""; // ده للعمود F
                     const badgeText = row.c[6] ? row.c[6].v : "";    // ده للعمود G
@@ -591,6 +592,21 @@ return `<div class="color-swatch" style="background-color: ${color.trim()};" onc
             } catch (error) {
                 console.error("Error loading products:", error);
             }
+            // دالة تقليب الصور أوتوماتيكياً
+function autoSlide() {
+    const cards = document.querySelectorAll('.product-card');
+    cards.forEach(card => {
+        const slides = card.querySelectorAll('.slide');
+        if (slides.length > 1) {
+            let activeIndex = Array.from(slides).findIndex(s => s.style.display === 'block');
+            slides[activeIndex].style.display = 'none';
+            let nextIndex = (activeIndex + 1) % slides.length;
+            slides[nextIndex].style.display = 'block';
+        }
+    });
+}
+// بيقلب الصور كل 3 ثواني
+setInterval(autoSlide, 3000);
         }
         const colorMap = {
     // إضافة أسماء الألوان بالانجليزي لضمان الترجمة:
