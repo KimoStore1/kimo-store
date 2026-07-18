@@ -569,10 +569,10 @@
             <img src="${img.trim()}" class="slide" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 100%; object-fit: contain; background-color: #f9f9f9;" onclick="openModal('${img.trim()}')">
         `).join('')}
         
-        <!-- إضافة الأسهم هنا -->
-        <button onclick="moveSlide(this, -1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 10px;">❮</button>
-        <button onclick="moveSlide(this, 1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 10px;">❯</button>
-    </div>
+       ${imagesArray.length > 1 ? `
+    <button onclick="moveSlide(this, -1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 10px; z-index: 10;">❮</button>
+    <button onclick="moveSlide(this, 1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 10px; z-index: 10;">❯</button>
+` : ''}
         </div>
         <div class="product-details">
             <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
@@ -613,7 +613,7 @@ function autoSlide() {
     }); 
 }
 function moveSlide(btn, direction) {
-    const slider = btn.parentElement;
+    const slider = btn.closest('.product-slider');
     const slides = Array.from(slider.querySelectorAll('.slide'));
     let activeIndex = slides.findIndex(s => s.style.display === 'block');
     
