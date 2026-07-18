@@ -555,47 +555,41 @@
                     
                     if (!id || id === "id" || id === "ID") return;
                     
-                    const productCard = document.createElement('div');
-                    productCard.className = 'product-card';
-                    const sizeSelectId = `size-${id}`;
-                    
-                    productCard.innerHTML = `
-    <div class="product-card" style="position: relative; border: 1px solid #ddd; padding: 15px; padding-top: 40px; border-radius: 8px; text-align: center;">
+                    // ننشئ العنصر الأساسي للكارد
+    const productCard = document.createElement('div');
+    productCard.className = 'product-card';
+    productCard.style.cssText = "position: relative; border: 1px solid #ddd; padding: 15px; padding-top: 40px; border-radius: 8px; text-align: center;";
+
+    // بنضيف الـ HTML جواه (بدون تكرار الـ div بتاع الـ product-card)
+    productCard.innerHTML = `
         <div class="badge-new">${badgeText || 'جديد'}</div>
-        <div class="product-slider" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 8px;">
-    ${imagesArray.map((img, index) => `
-        <img src="${img.trim()}" 
-             class="slide" 
-             style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 100%; object-fit: contain; background-color: #f9f9f9;" 
-             onclick="openModal('${img.trim()}')">
-    `).join('')}
-</div>
+        <div class="product-slider" style="position: relative; width: 100%; height: 250px; overflow: hidden; border-radius: 8px;">
+            ${imagesArray.map((img, index) => `
+                <img src="${img.trim()}" class="slide" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 100%; object-fit: contain; background-color: #f9f9f9;" onclick="openModal('${img.trim()}')">
+            `).join('')}
+        </div>
         <div class="product-details">
             <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
             <h3 class="product-name">${title}</h3>
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px; height: 40px; overflow: hidden;">${description}</p>
+            <p style="font-size: 0.9rem; color: #666; margin: 10px 0;">${description}</p>
             <div class="product-price" style="margin-bottom: 15px;">
-    ${oldPrice ? `<span style="text-decoration: line-through; color: #777; font-size: 0.9em; margin-left: 10px;">${oldPrice}</span>` : ""}
-    <span style="font-size: 1.3em; font-weight: bold; color: #d32f2f;">${price} جنيه</span>
-</div>
+                ${oldPrice ? `<span style="text-decoration: line-through; color: #777; font-size: 0.9rem; margin-left: 10px;">${oldPrice}</span>` : ''}
+                <span style="font-size: 1.3em; font-weight: bold; color: #d32f2f;">${price} جنيه</span>
+            </div>
             <div class="size-selector-wrapper" style="margin-bottom: 15px;">
                 <label>المقاس:</label>
-                <select id="${sizeSelectId}" class="size-select">
-                     ${generateSizeOptions(sizeType)}
-                </select>
-                <div class="color-options">
-               ${colors.map(color => {
-    let colorName = colorMap[color.trim()] || "غير محدد";
-    // بدلاً من إرسال color.trim()، أرسل المتغير colorName
-return `<div class="color-swatch" style="background-color: ${color.trim()};" onclick="selectColor(this, '${colorName}')"></div>`
-}).join('')}
+                <select id="${sizeSelectId}" class="size-select">${generateSizeOptions(sizeType)}</select>
             </div>
+            <div class="color-options">
+                ${colors.map(color => `
+                    <div class="color-swatch" style="background-color: ${color.trim()};" onclick="selectColor(this, '${color.trim()}')"></div>
+                `).join('')}
             </div>
             <button class="btn-add-cart" onclick="addItemToCart('${title}', '${price}', '${sizeSelectId}', this)">إضافة للسلة</button>
         </div>
-    </div>`;
-                    grid.appendChild(productCard);
-                });
+    `;
+    grid.appendChild(productCard);
+});
             } catch (error) {
                 console.error("Error loading products:", error);
             }
