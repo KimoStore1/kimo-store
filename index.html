@@ -543,6 +543,7 @@
                 rows.forEach(row => {
                     const id = row.c[0] ? row.c[0].v : "";
                     const title = row.c[1] ? row.c[1].v : "";
+                    const sizeSelectId = "size-" + id;
                     const price = row.c[2] ? row.c[2].v : "";
                     const oldPrice = row.c[9] ? row.c[9].v : "";
                     const imagesString = row.c[3] ? row.c[3].v : ""; 
