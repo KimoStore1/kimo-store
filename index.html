@@ -659,7 +659,7 @@ setInterval(autoSlide, 3000);
     const selectedColor = productCard.dataset.selectedColor || "غير محدد";
 
     // اتأكد إن السطر ده في دالة addItemToCart هو ده بالظبط:
-    cart.push({ name: name, price: parseFloat(price), size: selectedSize, color: selectedColor });
+    cart.push({ name: name, price: parseFloat(price), size: selectedSize, color: (colorMap[selectedColor] || selectedColor) });
     updateCart();
 }
 
