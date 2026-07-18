@@ -565,15 +565,9 @@
     productCard.innerHTML = `
         <div class="badge-new">${badgeText || 'جديد'}</div>
         <div class="product-slider" style="position: relative; width: 100%; height: 250px; overflow: hidden; border-radius: 8px;">
-    ${imagesArray.map((img, index) => `
-        <img src="${img.trim()}" class="slide" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 250px; object-fit: cover;">
-    `).join('')}
-    
-    ${imagesArray.length > 1 ? `
-        <button onclick="event.stopPropagation(); moveSlide(this, -1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; cursor: pointer; padding: 5px 10px; z-index: 10;">❮</button>
-        <button onclick="event.stopPropagation(); moveSlide(this, 1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; cursor: pointer; padding: 5px 10px; z-index: 10;">❯</button>
-    ` : ''}
-</div>
+            ${imagesArray.map((img, index) => `
+                <img src="${img.trim()}" class="slide" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 100%; object-fit: contain; background-color: #f9f9f9;" onclick="openModal('${img.trim()}')">
+            `).join('')}
         </div>
         <div class="product-details">
             <h4 style="color: #555; margin: 5px 0;">${sectionTitle}</h4>
@@ -611,22 +605,7 @@ function autoSlide() {
             let nextIndex = (activeIndex + 1) % slides.length;
             slides[nextIndex].style.display = 'block';
         }
-    });
-    function moveSlide(btn, direction) {
-    // تحديد السلايدر الخاص بالمنتج ده فقط
-    const slider = btn.closest('.product-slider');
-    const slides = Array.from(slider.querySelectorAll('.slide'));
-    let activeIndex = slides.findIndex(s => s.style.display === 'block');
-    
-    // إخفاء الصورة الحالية
-    slides[activeIndex].style.display = 'none';
-    
-    // حساب الصورة التالية أو السابقة
-    let nextIndex = (activeIndex + direction + slides.length) % slides.length;
-    
-    // إظهار الصورة الجديدة
-    slides[nextIndex].style.display = 'block';
-}
+    }); 
 }
 // بيقلب الصور كل 3 ثواني
 setInterval(autoSlide, 3000);
