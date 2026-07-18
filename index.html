@@ -673,7 +673,6 @@ setInterval(autoSlide, 3000);
         let cart = [];
 
         function addItemToCart(name, price, sizeSelectId, btnElement) {
-    // هنا بنجيب الـ productCard باستخدام الـ element اللي مبعوت (الزرار)
     const productCard = btnElement.closest('.product-card');
 
     let selectedSize = 'M';
@@ -682,13 +681,30 @@ setInterval(autoSlide, 3000);
         selectedSize = sizeSelect ? sizeSelect.value : 'M';
     }
 
-    // دلوقتي نقدر نجيب اللون من الـ dataset بتاع الـ productCard
     const selectedColor = productCard.dataset.selectedColor || "غير محدد";
+    const colorFinal = colorMap[selectedColor] || selectedColor;
 
-    // اتأكد إن السطر ده في دالة addItemToCart هو ده بالظبط:
-    cart.push({ name: name, price: parseFloat(price), size: selectedSize, color: (colorMap[selectedColor] || selectedColor) });
+    // بنشوف لو المنتج موجود بنفس المواصفات في السلة
+    const existingItem = cart.find(item => 
+        item.name === name && item.size === selectedSize && item.color === colorFinal
+    );
+
+    if (existingItem) {
+        existingItem.quantity += 1; // لو موجود، بنزود الكمية بس
+        showToast("تم زيادة الكمية في السلة! ✅");
+    } else {
+        // لو مش موجود، بنضيفه لأول مرة مع كمية 1
+        cart.push({ 
+            name: name, 
+            price: parseFloat(price), 
+            size: selectedSize, 
+            color: colorFinal, 
+            quantity: 1 
+        });
+        showToast("تم إضافة المنتج للسلة بنجاح! ✅");
+    }
+    
     updateCart();
-    showToast("تم إضافة المنتج للسلة بنجاح! ✅"); 
 }
 
         function removeFromCart(index) {
@@ -714,7 +730,7 @@ function updateCart() {
     let total = 0;
 
     cart.forEach((item, index) => {
-        total += item.price;
+        total += (item.price * item.quantity);
 
         const itemRow = document.createElement('div');
         itemRow.style.display = 'flex';
@@ -725,13 +741,14 @@ function updateCart() {
         itemRow.style.borderBottom = '1px solid #eee';
 
        itemRow.innerHTML = `
-            <div>
-                <span style="font-weight: bold; color: #333;">${item.name}</span> 
-                <span style="color: #888; font-size: 13px;">(${item.size})</span>
-                <div style="color: #2ed573; font-size: 14px; font-weight: bold;">${item.price} جنيه</div>
-            </div>
-            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff4757; cursor: pointer; font-size: 16px; padding: 5px;">❌</button>
-        `;
+    <div>
+        <span style="font-weight: bold;">${item.name}</span>
+        <span style="color: #888; font-size: 13px;">(${item.size} - ${item.color})</span>
+        <div style="color: #2ed573; font-weight: bold;">${item.price * item.quantity} جنيه</div>
+        <div style="font-size: 12px; color: #555;">الكمية: ${item.quantity}</div>
+    </div>
+    <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff4757; cursor: pointer;">حذف</button>
+`;
         itemsList.appendChild(itemRow);
     });
 
