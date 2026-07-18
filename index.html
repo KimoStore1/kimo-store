@@ -790,9 +790,10 @@ function updateCart() {
             let message = "طلب جديد من كيمو ستور 🛒:\n\n";
             let total = 0;
             cart.forEach((item, index) => {
-                message += `${index + 1}- ${item.name} (مقاس: ${item.size} - لون: ${item.color}) - ${item.price} جنيه\n`;
-                total += item.price;
-            });
+    // عدل السطر ده عشان يضرب السعر في الكمية ويظهر الكمية في الرسالة
+            message += `${index + 1}- ${item.name} (مقاس: ${item.size} - لون: ${item.color}) - الكمية: ${item.quantity} - السعر: ${item.price * item.quantity} جنيه\n`;
+            total += (item.price * item.quantity); // تأكد إنك ضارب السعر في الكمية هنا كمان
+        });
             message += `\n💰 الإجمالي للمنتجات: ${total} جنيه (يُضاف مصاريف الشحن عند التواصل)\n🚚 التوصيل متاح داخل القاهرة فقط\n--------------------------\nيرجى كتابة العنوان بالتفصيل والمنطقة:\nالعنوان: `;
             
             const whatsappUrl = `https://wa.me/201144425383?text=${encodeURIComponent(message)}`;
