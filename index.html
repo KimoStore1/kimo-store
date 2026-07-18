@@ -565,14 +565,15 @@
     productCard.innerHTML = `
         <div class="badge-new">${badgeText || 'جديد'}</div>
         <div class="product-slider" style="position: relative; width: 100%; height: 250px; overflow: hidden; border-radius: 8px;">
+    <!-- الصور -->
     ${imagesArray.map((img, index) => `
         <img src="${img.trim()}" class="slide" style="display: ${index === 0 ? 'block' : 'none'}; width: 100%; height: 100%; object-fit: cover;">
     `).join('')}
     
-    <!-- إضافة الأسهم هنا -->
+    <!-- الأسهم (تم إضافة z-index عشان تظهر فوق الصور) -->
     ${imagesArray.length > 1 ? `
-        <button onclick="moveSlide(this, -1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; cursor: pointer; padding: 5px; z-index: 10;">❮</button>
-        <button onclick="moveSlide(this, 1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; cursor: pointer; padding: 5px; z-index: 10;">❯</button>
+        <button onclick="moveSlide(this, -1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 10px; z-index: 20;">❮</button>
+        <button onclick="moveSlide(this, 1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 5px 10px; z-index: 20;">❯</button>
     ` : ''}
 </div>
         </div>
